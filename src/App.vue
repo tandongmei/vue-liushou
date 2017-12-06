@@ -11,7 +11,7 @@
       <el-aside width="300px">
         <aside-vue></aside-vue>
       </el-aside> -->
-      <!-- <router-view></router-view> -->
+      <router-view></router-view>
     </el-container>
     <el-footer>
       <footVue></footVue>
@@ -21,15 +21,11 @@
 
 <script>
   import headVue from './components/common/head.vue'
-  import mainVue from './components/common/main.vue'
-  import asideVue from './components/common/aside.vue'
   import footVue from './components/common/foot.vue'
   
   export default {
     components: {
       headVue,
-      mainVue,
-      asideVue,
       footVue
     }
   }

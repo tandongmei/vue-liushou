@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import mainVue from '../components/common/main.vue'
+import Main from '../components/common/main.vue'
 
+
+// 安装插件
 Vue.use(Router)
 
-
 let routes = [ 
-  {
-    path: '/shouye',
-    component: mainVue
-  }
+ {
+   path: '/',
+   component: Main
+ }
 ]
 export default new Router({
-  routes: routes
+ routes: routes
 })
