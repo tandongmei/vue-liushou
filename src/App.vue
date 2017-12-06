@@ -7,11 +7,12 @@
       <!-- <el-main>
         <mainVue></mainVue>
       </el-main>
-      
       <el-aside width="300px">
         <aside-vue></aside-vue>
       </el-aside> -->
-      <router-view></router-view>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
     <el-footer>
       <footVue></footVue>
