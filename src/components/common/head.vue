@@ -1,8 +1,10 @@
 <template>
   <div>
+    <el-row>
+  <el-col :span="24"><div class="grid-content bg-purple-dark">
     <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
         <el-menu-item ><img src="./../../assets/logo.png"  class="image"></el-menu-item>
-        <el-menu-item index="1">网站首页</el-menu-item>
+        <el-menu-item index="1"><router-link to="/">网站首页</router-link></el-menu-item>
         <el-submenu index="2">
             <template slot="title">留守之家</template>
             <el-menu-item index="2-1">关爱留守</el-menu-item>
@@ -16,6 +18,10 @@
         <el-menu-item index="4">心灵大使</el-menu-item>
         <el-menu-item index="5">亲子互动</el-menu-item>
     </el-menu>
+    
+    </div></el-col>
+</el-row>
+    
   </div>
 </template>
 <script>
