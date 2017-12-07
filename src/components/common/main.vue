@@ -1,82 +1,42 @@
 <template>
-<div>
-  <el-carousel indicator-position="outside">
-    <el-carousel-item v-for="item in 4" :key="item">
-      <h3>{{ item }}</h3>
+<div >
+  <el-carousel indicator-position="outside" height="550px">
+    <el-carousel-item v-for="item in imgList" :key="item.id">
+       <img :src="item.url" class="image">
     </el-carousel-item>
   </el-carousel>
-  <el-tabs type="border-card">
-    <el-tab-pane label="美食">
-      <el-row>
-        <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="static/images/common/hamburger.png" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <time class="time">{{ currentDate }}</time>
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-    </el-tab-pane>
-    <el-tab-pane label="美食2">
-      <el-row>
-        <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="static/images/common/hamburger.png" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <time class="time">{{ currentDate }}</time>
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-    </el-tab-pane>
-    <el-tab-pane label="美食3">
-      <el-row>
-        <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="static/images/common/hamburger.png" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <time class="time">{{ currentDate }}</time>
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-    </el-tab-pane>
-    <el-tab-pane label="美食4">
-      <el-row>
-        <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="static/images/common/hamburger.png" class="image">
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <time class="time">{{ currentDate }}</time>
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-    </el-tab-pane>
-</el-tabs>
+  <!-- <el-carousel :interval="5000" arrow="always">
+    <el-carousel-item v-for="item in 4" :key="item">
+      <img src="static/images/child/lunbo/1.jpg" class="image">
+    </el-carousel-item>
+  </el-carousel> -->
 </div>
 </template>
 <script>
 export default {
-  
-}
+    data () {
+      return {
+        imgList: [
+          { id:1,
+            url:'static/images/child/lunbo/1.jpg'
+          },
+          { id:2,
+            url:'static/images/child/lunbo/2.jpg'
+          },
+          { id:3,
+            url:'static/images/child/lunbo/3.jpg'
+          },
+          { id:4,
+            url:'static/images/child/lunbo/4.jpg'
+          },
+          { id:5,
+            url:'static/images/child/lunbo/5.jpg'
+          }
+        ]
+      }
+    }
+  }
+
 </script>
 <style>
   .el-carousel__item h3 {
