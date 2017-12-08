@@ -9,7 +9,7 @@
                 <el-menu-item ><span style="font-weight:bolder;font-size:28px;color:#ffd04b">LIU SHOU</span></el-menu-item>
               </el-col>
               <el-col :span="17">
-                <el-menu-item index="1"><router-link to="/">网站首页</router-link></el-menu-item>
+                <el-menu-item index="1">网站首页</el-menu-item>
                 <el-submenu index="2">
                     <template slot="title">留守之家</template>
                     <el-menu-item index="2-1">关爱留守</el-menu-item>

@@ -1,7 +1,7 @@
 <template>
 <div >
   <el-container>
-    <el-header height="60px">
+    <el-header>
       <head-vue></head-vue>
     </el-header>
     <el-container>

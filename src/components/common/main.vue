@@ -5,11 +5,6 @@
        <img :src="item.url" class="image">
     </el-carousel-item>
   </el-carousel>
-  <!-- <el-carousel :interval="5000" arrow="always">
-    <el-carousel-item v-for="item in 4" :key="item">
-      <img src="static/images/child/lunbo/1.jpg" class="image">
-    </el-carousel-item>
-  </el-carousel> -->
 </div>
 </template>
 <script>
