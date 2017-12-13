@@ -9,7 +9,7 @@
                 <el-menu-item ><span style="font-weight:bolder;font-size:35px;color:#ffd04b">LIU SHOU</span></el-menu-item>
               </el-col>
               <el-col :span="17">
-                <el-menu-item index="1">网站首页</el-menu-item>
+                <el-menu-item index="1"><router-link to="/shouye">网站首页</router-link></el-menu-item>
                 <el-submenu index="2">
                     <template slot="title">留守之家</template>
                     <el-menu-item index="2-1">关爱留守</el-menu-item>
@@ -25,9 +25,8 @@
                 
               </el-col>
               <el-col :span="3">
-                <el-menu-item index="6">登陆</el-menu-item>
-                <!-- <el-menu-item index="">|</el-menu-item> -->
-                <el-menu-item index="7">注册</el-menu-item>
+                <el-menu-item index="6"><router-link to="/login">登陆</router-link></el-menu-item>
+                <el-menu-item index="7"><router-link to="/register">注册</router-link></el-menu-item>
               </el-col>
             </el-row>
         </el-menu>
