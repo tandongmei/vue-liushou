@@ -1,16 +1,90 @@
 <template>
 <div >
+  <!-- 首页轮播 -->
   <el-carousel indicator-position="outside" height="550px">
     <el-carousel-item v-for="item in imgList" :key="item.id">
        <img :src="item.url" class="image">
     </el-carousel-item>
   </el-carousel>
+  <!-- 首页进度条 -->
+  <!-- <el-row>
+    <el-col :span="6"><el-progress :percentage="100" :stroke-width="18" status="exception"></el-progress></el-col>
+    <el-col :span="6"><el-progress :percentage="100" :stroke-width="18" status="exception"></el-progress></el-col>
+    <el-col :span="6"><el-progress :percentage="100" :stroke-width="18" status="exception"></el-progress></el-col>
+    <el-col :span="6"><el-progress :percentage="100" :stroke-width="18" status="exception"></el-progress></el-col>
+</el-row> -->
+<!-- 首页警示条 -->
+<el-container>
+  <el-main style="background-color:rgb(254,63,0)">
+    <el-header height="60px">
+      <el-row style="text-align:center;font-size:20px;color:#fff;">
+        <el-col :span="6" >
+          <el-header height="10px"></el-header>
+          <el-main>
+            <el-header>GUAN AI LIU SHOU</el-header>
+            <el-main>关爱留守</el-main>
+          </el-main>
+        </el-col>
+        <el-col :span="6" >
+          <el-header height="10px"></el-header>
+          <el-main>
+            <el-header>XUN QIU AI XIN</el-header>
+            <el-main>寻求爱心</el-main>
+          </el-main>
+        </el-col>
+        <el-col :span="6" >
+          <el-header height="10px"></el-header>
+          <el-main>
+            <el-header>GONG YI XIN WEN</el-header>
+            <el-main>公益新闻</el-main>
+          </el-main>
+        </el-col>
+        <el-col :span="6" >
+          <el-header height="10px"></el-header>
+          <el-main>
+            <el-header>WEI TA ZHU LI</el-header>
+            <el-main>为他助力</el-main>
+          </el-main>
+        </el-col>
+      </el-row>
+    </el-header>
+  </el-main>
+</el-container>
+<!-- 首页图文>> 他们特殊的“故事”-->
+<el-container>
+  <el-main style="background-color:rgb(243,243,243);height:550px">
+    <el-header height="50px" style="text-align:center">
+      <span>他们特殊的“故事”</span>
+    </el-header>
+    <el-main>
+      <el-row>
+        <el-col :span="6">1</el-col>
+        <el-col :span="6">
+          <el-card :body-style="{ padding: '0px' }">
+            <img src="static/images/child/detail/1.jpg" class="image">
+            <div style="padding: 14px;">
+              <span>无声的呐喊...</span>
+              <div class="bottom clearfix">
+                <time class="time">{{ currentDate }}</time>
+                <el-button type="text" class="button">查看详情</el-button>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="6">1</el-col>
+        <el-col :span="6">1</el-col>
+      </el-row>
+    </el-main>
+    <el-footer height="80px"></el-footer>
+  </el-main>
+</el-container>
 </div>
 </template>
 <script>
 export default {
     data () {
       return {
+        currentDate: new Date(),
         imgList: [
           { id:1,
             url:'static/images/child/lunbo/1.jpg'
@@ -33,20 +107,34 @@ export default {
   }
 
 </script>
-<style>
-  .el-carousel__item h3 {
-    color: #475669;
-    font-size: 18px;
-    opacity: 0.75;
-    line-height: 300px;
-    margin: 0;
+<style >
+ .time {
+    font-size: 13px;
+    color: #999;
   }
   
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .button {
+    padding: 0;
+    float: right;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+      display: table;
+      content: "";
   }
   
-  .el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
-  }
+  .clearfix:after {
+      clear: both
+  } 
 </style>

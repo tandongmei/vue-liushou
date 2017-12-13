@@ -1,12 +1,12 @@
 <template>
-  <div style="position:fixed; width:100%;">
+  <div style="position:fixed; width:100%;height:60px">
     <el-row >
       <el-col :span="24">
       <div class="grid-content bg-purple-dark">
         <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
             <el-row>
               <el-col :span="4">
-                <el-menu-item ><span style="font-weight:bolder;font-size:28px;color:#ffd04b">LIU SHOU</span></el-menu-item>
+                <el-menu-item ><span style="font-weight:bolder;font-size:35px;color:#ffd04b">LIU SHOU</span></el-menu-item>
               </el-col>
               <el-col :span="17">
                 <el-menu-item index="1">网站首页</el-menu-item>
@@ -26,6 +26,7 @@
               </el-col>
               <el-col :span="3">
                 <el-menu-item index="6">登陆</el-menu-item>
+                <!-- <el-menu-item index="">|</el-menu-item> -->
                 <el-menu-item index="7">注册</el-menu-item>
               </el-col>
             </el-row>
