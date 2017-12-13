@@ -1,7 +1,7 @@
 <template>
 <div>
-   <el-container style="background-image:url('static/images/common/back4.jpg');height:850px">
-       <el-main style="background-color:#FFF;width:400px;margin:30px 300px;">
+   <el-container style="background-image:url('static/images/common/back7.jpg');height:850px">
+       <el-main style="background-image:url('static/images/common/back6.jpg');width:400px;margin:30px 300px;">
            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="活动名称" prop="name">
                     <el-input v-model="ruleForm.name"></el-input>
