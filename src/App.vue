@@ -1,18 +1,18 @@
 <template>
-<div >
+<div>
   <el-container>
-    <el-header>
-      <head-vue></head-vue>
+    <el-header style="width:100%;height:60px;position:fixed;top:0px;left:0;z-index:50;margin-left:-20px">
+      <head-vue ></head-vue>
     </el-header>
-    <el-container>
-      <el-main style="z-index: -99;">
-        <router-view></router-view>
-      </el-main>
-    </el-container>
+
+    <el-main >
+      <router-view></router-view>
+    </el-main>
+   
     <el-footer height="160px">
       <footVue></footVue>
     </el-footer>
-  </el-container>
+    </el-container>
 </div>
 </template>
 
