@@ -12,13 +12,13 @@
                 <el-menu-item index="1"><router-link to="/shouye">网站首页</router-link></el-menu-item>
                 <el-submenu index="2">
                     <template slot="title">留守之家</template>
-                    <el-menu-item index="2-1">关爱留守</el-menu-item>
-                    <el-menu-item index="2-2">寻求爱心</el-menu-item>
+                    <el-menu-item index="2-1"><router-link to="/child">关爱留守</router-link></el-menu-item>
+                    <el-menu-item index="2-2"><router-link to="/help">寻求爱心</router-link></el-menu-item>
                 </el-submenu>
                 <el-submenu index="3">
                     <template slot="title">爱心公益</template>
-                    <el-menu-item index="3-1">公益新闻</el-menu-item>
-                    <el-menu-item index="3-2">为他助力</el-menu-item>
+                    <el-menu-item index="3-1"><router-link to="/loveUser">公益新闻</router-link></el-menu-item>
+                    <el-menu-item index="3-2"><router-link to="/assist">为他助力</router-link></el-menu-item>
                 </el-submenu>
                 <el-menu-item index="4">心灵大使</el-menu-item>
                 <el-menu-item index="5">亲子互动</el-menu-item>

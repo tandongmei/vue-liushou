@@ -10,23 +10,61 @@ import Main from '../components/common/main.vue'
 import Register from '../components/register/register'
 import Login from '../components/register/login'
 
+/**
+ * /components/child
+*/
+import Child from '../components/child/child'
+import Help from '../components/child/help'
+
+/**
+ * /components/loveUser
+*/
+import LoveUser from '../components/loveUser/loveUser'
+import Assist from '../components/loveUser/assist'
+
 // 安装插件
 Vue.use(Router)
 
 let routes = [ 
- {
-   path: '/shouye',
-   component: Main
- },
- {
-   path: '/register',
-   component: Register
- },
- {
-   path: '/login',
-   component: Login
- }
+    {
+      path: '/',
+      component: Main
+    },
+// 首页
+    {
+      path: '/shouye',
+      component: Main
+    },
+// 注册，登陆
+    {
+      path: '/register',
+      component: Register
+    },
+    {
+      path: '/login',
+      component: Login
+    },
+// 留守之家：关爱留守，寻求爱心
+    {
+      path: '/child',
+      component: Child
+    },
+    {
+      path: '/help',
+      component: Help
+    },
+// 爱心公益：公益新闻，为他助力
+    {
+      path: '/loveUser',
+      component: LoveUser
+    },
+    {
+      path: '/assist',
+      component: Assist
+    }
 ]
+
+
 export default new Router({
  routes: routes
 })
