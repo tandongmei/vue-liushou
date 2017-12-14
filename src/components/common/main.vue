@@ -1,21 +1,14 @@
 <template>
 <div >
   <!-- 首页轮播 -->
-  <el-carousel indicator-position="outside" height="550px">
+  <el-carousel  height="550px" interval="2000" arrow="always">
     <el-carousel-item v-for="item in eventList" :key="item.id">
        <img :src="item.eventImg" class="image">
     </el-carousel-item>
   </el-carousel>
-  <!-- 首页进度条 -->
-  <!-- <el-row>
-    <el-col :span="6"><el-progress :percentage="100" :stroke-width="18" status="exception"></el-progress></el-col>
-    <el-col :span="6"><el-progress :percentage="100" :stroke-width="18" status="exception"></el-progress></el-col>
-    <el-col :span="6"><el-progress :percentage="100" :stroke-width="18" status="exception"></el-progress></el-col>
-    <el-col :span="6"><el-progress :percentage="100" :stroke-width="18" status="exception"></el-progress></el-col>
-</el-row> -->
 <!-- 首页警示条 -->
 <el-container>
-  <el-main style="background-color:rgb(254,63,0)">
+  <el-main style="background-color:rgb(254,63,0);margin-top:20px">
     <el-header height="60px">
       <el-row style="text-align:center;font-size:20px;color:#fff;">
         <el-col :span="6" >
@@ -65,7 +58,7 @@
               <span>{{item.title}}</span>
               <div class="bottom clearfix">
                 <time class="time">{{ item.createdTime }}</time>
-                <el-button type="text" class="button">查看详情</el-button>
+                <el-button type="text" class="button" @click="showDetail(item.id)">查看详情</el-button>
               </div>
             </div>
           </el-card>
@@ -203,11 +196,33 @@ export default {
           }
         ] 
       }
+    },
+    methods: {
+      showDetail: function(id){
+          console.log(id);
+          // 根据id查看详情
+
+          // 路由跳转
+          this.$router.push({path:'/child'})
+      }
     }
   }
 
 </script>
 <style >
+.el-carousel__arrow--left {
+  background-color: #303133;
+}
+.el-carousel__arrow--right {
+  background-color: #303133;
+}
+/* .el-carousel__button {
+  background-color: red;
+} */
+.el-carousel__indicator.is-active button {
+  background-color: red;
+  height: 5px;
+}
  .time {
     font-size: 13px;
     color: #999;
