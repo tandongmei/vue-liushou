@@ -3,7 +3,7 @@
    <el-container style="background-image:url('static/images/common/back7.jpg');height:850px;">
        <el-main style="background-color:#FFFFFF;width:400px;margin:50px 350px;">
            <div style="text-align:center;font-family:blod;font-size:35px;"><span style="font-color:red">注册</span></div>
-           <el-form :model="user" :rules="rules" ref="ruleForm" label-width="110px" class="demo-ruleForm">
+           <el-form :model="user" :rules="rules" ref="userForm" label-width="110px" class="demo-ruleForm">
                 <el-form-item label="用户昵称" prop="nickName">
                     <el-input v-model="user.nickName" suffix-icon="el-icon-edit"></el-input>
                 </el-form-item>
@@ -38,8 +38,8 @@
                     <el-input v-model="user.payNo" suffix-icon="el-icon-tickets" placeholder="请输入一个可收款的支付宝账号"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
-                    <el-button @click="resetForm('ruleForm')">重置</el-button>
+                    <el-button type="primary" @click="submitForm('userForm')">注册</el-button>
+                    <el-button @click="resetForm('userForm')">重置</el-button>
                 </el-form-item>
             </el-form>
        </el-main>
@@ -60,16 +60,12 @@
           email: '',
           isLeftChild: '',
           headImg: '',
-          createdTime: '',
-          pay: {
-            payType: '',
-            payNo: ''
-          }
+          payNo: ''
         },
         rules: {
           nickName: [
             { required: true, message: '请输入用户昵称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+            { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
           ],
           password: [
             { required: true, message: '请输入密码', trigger: 'blur' }
@@ -91,10 +87,17 @@
       };
     },
     methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
+      submitForm(userForm) {
+        this.$refs[userForm].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            let para = this.user;
+            console.log("para:"+para);
+            this.$Axios.post(this.$API.apiUri.user.base,para).then((res) => {
+              let {code,msg,data} = res.data;
+              if(code == 200){
+                // 注册成功
+              }
+            });
           } else {
             console.log('error submit!!');
             return false;
