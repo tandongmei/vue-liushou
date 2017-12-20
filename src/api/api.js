@@ -9,7 +9,8 @@ export default {
     envHost: HOST[ENV],
     apiUri: {
         'user': {
-            'base': HOST[ENV] + '/api/user'
+            'base': HOST[ENV] + '/api/user',
+            'login': HOST[ENV] + '/api/user/login'
         }
     }
 }

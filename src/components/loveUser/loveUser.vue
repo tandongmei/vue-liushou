@@ -1,6 +1,9 @@
 <template>
   <div>
-      公益新闻
+    <el-container>
+      <el-main>2</el-main>
+      <el-aside>3</el-aside>
+    </el-container>
   </div>
 </template>
 <script>

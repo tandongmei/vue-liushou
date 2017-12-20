@@ -58,9 +58,23 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            var nickName = this.user.nickName;
+            var password = this.user.password;
+            this.$Axios.post(this.$API.apiUri.user.login+ "?nickName=" + nickName + "&password=" + password).then((res) => {
+                let {code,msg,data} = res.data;
+                if(code === 0){
+                  // 登陆成功
+                  this.$refs['userForm'].resetFields();
+                  this.$message.success('登陆成功');
+                }else if(code === 1001){
+                    this.$message.error('用户不存在');
+                }else if(code === -2){
+                    this.$message.error('密码错误');
+                }else{
+                    this.$message.error('系统异常');
+                }
+            })
           } else {
-            console.log('error submit!!');
             return false;
           }
         });

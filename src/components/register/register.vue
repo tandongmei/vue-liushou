@@ -20,7 +20,7 @@
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="年龄" prop="age">
-                    <el-input v-model.trim="user.age" suffix-icon="el-icon-date"></el-input>
+                    <el-input v-model.trim="user.age" type="number" min="1" suffix-icon="el-icon-date"></el-input>
                 </el-form-item>
                 <el-form-item label="电话" prop="tel">
                     <el-input v-model.trim="user.tel" suffix-icon="el-icon-mobile-phone"></el-input>
@@ -47,7 +47,7 @@
 </div>
 </template>
 <script>
-import {valiTel,valiEmail} from './../../utils/validateUtil';
+import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
 
 
   export default {
@@ -93,6 +93,15 @@ import {valiTel,valiEmail} from './../../utils/validateUtil';
           callback();
         }
       };
+      const validatePayNo = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请输入支付宝账号'));
+        }else if(!valiPayNo(value)){
+          callback(new Error('支付宝账号格式错误'));
+        } else {
+          callback();
+        }
+      };
       return {
         user: {
           nickName: '',
@@ -124,6 +133,9 @@ import {valiTel,valiEmail} from './../../utils/validateUtil';
           ],
           email: [
             { required: true, trigger: 'blur', validator: validateEmail }
+          ],
+          payNo: [
+            { required: true, trigger: 'blur', validator: validatePayNo }
           ]
           
         }
@@ -138,12 +150,17 @@ import {valiTel,valiEmail} from './../../utils/validateUtil';
               let {code,msg,data} = res.data;
               if(code === 0){
                 this.$refs['userForm'].resetFields();
-              console.log("注册成功");
+                this.$message.success('注册成功');
                 // 注册成功
+              }else if(code === 1002){
+                // 用户名已经存在
+                this.$message.error('用户名已经存在');
+              }else{
+                 // 注册失败
+                this.$message.error('系统异常');
               }
             });
           } else {
-            console.log('error submit!!');
             return false;
           }
         });
