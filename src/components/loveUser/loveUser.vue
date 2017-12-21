@@ -1,9 +1,8 @@
 <template>
   <div>
-    <el-container>
-      <el-main>2</el-main>
-      <el-aside>3</el-aside>
-    </el-container>
+    <div>
+      为他333
+  </div>
   </div>
 </template>
 <script>

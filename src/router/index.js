@@ -4,6 +4,7 @@ import Router from 'vue-router'
  * /components/common
 */
 import Main from '../components/common/main.vue'
+import Home from '../components/common/home.vue'
 /**
  * /components/register
 */
@@ -61,7 +62,19 @@ let routes = [
     {
       path: '/assist',
       component: Assist
+    },
+// HOME
+    {
+      path: '/home',
+      component: Home,
+      children: [
+        { path: 'child', component: Child },
+        { path: 'help', component: Help },
+        { path: 'loveUser', component: LoveUser },
+        { path: 'assist', component: Assist }
+      ]
     }
+
 ]
 
 
