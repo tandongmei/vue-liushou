@@ -1,7 +1,7 @@
 <template>
   <div>
       <el-container style="background-color:rgb(243,243,243);">
-        <el-main style="margin: 10px 30px">
+        <el-main style="margin: 10px 10px 10px 70px;">
           <!-- <el-header style="margin-bottom: 20px;height:40px;background-color:#E4E7ED;padding:15px">
             <el-breadcrumb separator="/">
               <el-breadcrumb-item :to="{ path: '/shouye' }">首页</el-breadcrumb-item>
@@ -17,7 +17,41 @@
           </div> -->
           <router-view></router-view>
         </el-main>
-        <el-aside >侧边固定</el-aside>
+        <!-- 侧边栏固定 -->
+        <el-aside style="margin-top: 30px;margin-right: 70px;">
+          <el-card class="box-card">
+              <div class="title">
+                <span>排行榜</span>
+              </div>
+              <div v-for="o in 4" :key="o" class="text item">
+                {{'列表内容 ' + o }}
+              </div>
+          </el-card>
+          <el-card class="box-card">
+            <div class="title">
+              <span>热门推荐</span>
+            </div>
+            <div v-for="o in 4" :key="o" class="text item">
+              {{'列表内容 ' + o }}
+            </div>
+          </el-card>
+          <el-card class="box-card">
+            <div class="title">
+              <span>最新文章</span>
+            </div>
+            <div v-for="o in 4" :key="o" class="text item">
+              {{'列表内容 ' + o }}
+            </div>
+          </el-card>
+          <el-card class="box-card">
+            <div class="title">
+              <span>随便看看</span>
+            </div>
+            <div v-for="o in 4" :key="o" class="text item">
+              {{'列表内容 ' + o }}
+            </div>
+          </el-card>
+        </el-aside>
     </el-container>
   </div>
 </template>
@@ -75,12 +109,24 @@ export default {
 }
 </script>
 <style>
-/* .titleDiv a{
-  text-decoration: none;
+.title{
+    border-bottom: 1px solid #009688;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0 0 10px 0;
+    margin-bottom: 15px;
 }
-.titleDiv a:hover {
-  color: #39c;
-} */
+.text {
+    font-size: 14px;
+  }
+
+  .item {
+    margin-bottom: 13px;
+  }
+
+  .box-card {
+    margin-bottom: 20px;
+  }
 </style>
 
 

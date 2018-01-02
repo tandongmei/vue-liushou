@@ -15,6 +15,10 @@
           <div style="margin-top: 15px;color:rgb(176,176,176);font-size:13px;line-height:20px"><span>{{item.content}}</span></div>
         </el-card>
       </div>
+      <!-- 分页 -->
+      <div style="background-color:#E4E7ED;height:40px;margin-top:20px;padding-top:15px">
+        <el-pagination style="margin-right:10px" background layout="prev, pager, next" :total="100"></el-pagination>
+      </div>
   </div>
 </template>
 <script>

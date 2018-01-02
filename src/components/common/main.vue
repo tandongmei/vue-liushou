@@ -85,7 +85,7 @@
               <div><el-tag type="warning">{{ item.title }}</el-tag></div>
               <span style="font-size:10px;display:block">{{item.content}}</span>
               <div class="bottom clearfix">
-                <el-button type="text" class="button">查看详情</el-button>
+                <el-button type="text" class="button" @click="showDetail(item.id)">查看详情</el-button>
               </div>
             </div>
           </el-card>
@@ -203,7 +203,7 @@ export default {
           // 根据id查看详情
 
           // 路由跳转
-          this.$router.push({path:'/child'})
+          this.$router.push({path:'/home/child'})
       }
     }
   }
