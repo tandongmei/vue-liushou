@@ -23,6 +23,11 @@ import Help from '../components/child/help'
 import LoveUser from '../components/loveUser/loveUser'
 import Assist from '../components/loveUser/assist'
 
+/**
+ *  /components/common
+*/
+import Detail from '../components/common/detail'
+
 // 安装插件
 Vue.use(Router)
 
@@ -71,7 +76,8 @@ let routes = [
         { path: 'child', component: Child },
         { path: 'help', component: Help },
         { path: 'loveUser', component: LoveUser },
-        { path: 'assist', component: Assist }
+        { path: 'assist', component: Assist },
+        { path: 'detail', component: Detail }
       ]
     }
 

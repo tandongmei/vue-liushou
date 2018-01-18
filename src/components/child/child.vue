@@ -10,8 +10,8 @@
       <!-- 卡片 -->
       <div v-for="(item, index) in eventList" :key="item.id">
         <el-card :body-style="{ padding: '25px' }" style="margin-bottom: 20px;height:400px">
-          <div style="height:50px;font-size:20px;color:#000;" class="titleDiv"><a href="#" >{{item.title}}</a></div>
-          <div style="width:576px;height:206px"><a href="#" ><img :src="item.eventImg"></a></div>
+          <div style="height:50px;font-size:20px;color:#000;" class="titleDiv" @click="showDetail(item.id)"><a href="#" >{{item.title}}</a></div>
+          <div style="width:576px;height:206px" @click="showDetail(item.id)"><a href="#" ><img :src="item.eventImg"></a></div>
           <div style="margin-top: 15px;color:rgb(176,176,176);font-size:13px;line-height:20px"><span>{{item.content}}</span></div>
         </el-card>
       </div>
@@ -70,8 +70,16 @@ export default {
           }
         ]
     }
-  }
-  
+  },
+   methods: {
+      showDetail: function(id){
+          console.log(id);
+          // 根据id查看详情
+
+          // 路由跳转
+          this.$router.push({path:'/home/detail'})
+      }
+    } 
 }
 </script>
 <style>

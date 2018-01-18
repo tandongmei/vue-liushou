@@ -47,7 +47,7 @@
 <el-container>
   <el-main style="background-color:rgb(243,243,243);height:650px">
     <el-header height="80px" style="text-align:center;line-height:80px">
-      <el-button type="success" plain>他们特殊的“故事“>>></el-button>
+      <el-button type="success" plain ><router-link to="/home/child">他们特殊的“故事“>>></router-link></el-button>
     </el-header>
     <el-main>
       <el-row>
@@ -203,7 +203,7 @@ export default {
           // 根据id查看详情
 
           // 路由跳转
-          this.$router.push({path:'/home/child'})
+          this.$router.push({path:'/home/detail'})
       }
     }
   }

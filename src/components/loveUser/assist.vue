@@ -1,6 +1,12 @@
 <template>
   <div>
-      为他助力
+      <!-- 面包屑 -->
+      <el-header style="margin-bottom: 20px;height:40px;background-color:#E4E7ED;padding:15px">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item :to="{ path: '/shouye' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item>为他助力</el-breadcrumb-item>
+        </el-breadcrumb>
+      </el-header>
   </div>
 </template>
 <script>
