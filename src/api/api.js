@@ -11,6 +11,9 @@ export default {
         'user': {
             'base': HOST[ENV] + '/api/user',
             'login': HOST[ENV] + '/api/user/login'
+        },
+        'event': {
+            'base': HOST[ENV] + '/api/event'           
         }
     }
 }
