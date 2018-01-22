@@ -2,19 +2,7 @@
   <div>
       <el-container style="background-color:rgb(243,243,243);">
         <el-main style="margin: 10px 10px 10px 70px;">
-          <!-- <el-header style="margin-bottom: 20px;height:40px;background-color:#E4E7ED;padding:15px">
-            <el-breadcrumb separator="/">
-              <el-breadcrumb-item :to="{ path: '/shouye' }">首页</el-breadcrumb-item>
-              <el-breadcrumb-item>关爱留守</el-breadcrumb-item>
-            </el-breadcrumb>
-          </el-header>
-          <div v-for="(item, index) in eventList" :key="item.id">
-            <el-card :body-style="{ padding: '25px' }" style="margin-bottom: 20px;height:400px">
-              <div style="height:50px;font-size:20px;color:#000;" class="titleDiv"><a href="#" >{{item.title}}</a></div>
-              <div style="width:576px;height:206px"><a href="#" ><img :src="item.eventImg"></a></div>
-              <div style="margin-top: 15px;color:rgb(176,176,176);font-size:13px;line-height:20px"><span>{{item.content}}</span></div>
-            </el-card>
-          </div> -->
+          <!-- 子路由 -->
           <router-view></router-view>
         </el-main>
         <!-- 侧边栏固定 -->

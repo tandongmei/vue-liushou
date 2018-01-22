@@ -51,23 +51,23 @@ let routes = [
       component: Login
     },
 // 留守之家：关爱留守，寻求爱心
-    {
-      path: '/child',
-      component: Child
-    },
-    {
-      path: '/help',
-      component: Help
-    },
+    // {
+    //   path: '/child',
+    //   component: Child
+    // },
+    // {
+    //   path: '/help',
+    //   component: Help
+    // },
 // 爱心公益：公益新闻，为他助力
-    {
-      path: '/loveUser',
-      component: LoveUser
-    },
-    {
-      path: '/assist',
-      component: Assist
-    },
+    // {
+    //   path: '/loveUser',
+    //   component: LoveUser
+    // },
+    // {
+    //   path: '/assist',
+    //   component: Assist
+    // },
 // HOME
     {
       path: '/home',

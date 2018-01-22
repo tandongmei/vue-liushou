@@ -17,7 +17,7 @@
       </div>
       <!-- 分页 -->
       <div style="background-color:#E4E7ED;height:40px;margin-top:20px;padding-top:15px">
-        <el-pagination style="margin-right:10px" background layout="prev, pager, next" :total="100"></el-pagination>
+        <el-pagination style="margin-right:10px" background layout="prev, pager, next" :pageSize="pageSize" @current-change="currentChange" :total="total"></el-pagination>
       </div>
   </div>
 </template>
@@ -29,39 +29,48 @@ export default {
     return {
       eventList: [],
       pageNo: 1,
-      pageSize: 15,
-      sort: createdTime,
-      dir: desc,
+      pageSize: 6,
+      sort: 'createdTime',
+      dir: 'desc',
+      total: 0,
       filters: {}
     }
   },
-   methods: {
-     // 查询所有事件
-     queryEvents: function(){
-         let para = {
-           pageNo: this.pageNo,
-           pageSize: this.pageSize,
-           sort: this.sort,
-           dir: this.dir,
-           filters: this.filters
-         }
-         this.$Axios.get(this.$API.apiUri.event.base,para).then((res) => {
-           let {code, msg, data} = res.data;
-         })
-     },
-    showDetail: function(id){
-        console.log(id);
-        // 根据id查看详情
+  methods: {
+    // 处理分页
+    currentChange: function(val){
+      console.log("currentChange:"+val);
+      this.pageNo = val;
+      this.queryEvents();
+    },
+    // 查询所有事件
+    queryEvents: function(){
+        let para = {
+          pageNo: this.pageNo,
+          pageSize: this.pageSize,
+          sort: this.sort,
+          dir: this.dir,
+          filters: JSON.stringify(this.filters)   // 对象解析为字符串
+        }
+        this.$Axios.get(this.$API.apiUri.event.base,{params: para}).then((res) => {
+          let {code, msg, data, totalRecords} = res.data;
+          this.eventList = data;
+          this.total = totalRecords;
+        })
+    },
+  showDetail: function(id){
+      console.log(id);
+      // 根据id查看详情
 
-        // 路由跳转
-        this.$router.push({path:'/home/detail'})
+      // 路由跳转
+      this.$router.push({path:'/home/detail'})
     }
   },
-
-    // 生命周期函数
-    mounted: {
-      queryEvents();
-    }
+  // 生命周期函数
+  mounted: function(){
+    console.log("mountedkaishi");
+    this.queryEvents();
+  }
 
 }
 </script>
