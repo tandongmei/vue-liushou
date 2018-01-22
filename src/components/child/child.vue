@@ -23,7 +23,6 @@
 </template>
 <script>
 
-
 export default {
   data() {
     return {
@@ -39,7 +38,6 @@ export default {
   methods: {
     // 处理分页
     currentChange: function(val){
-      console.log("currentChange:"+val);
       this.pageNo = val;
       this.queryEvents();
     },
@@ -54,8 +52,10 @@ export default {
         }
         this.$Axios.get(this.$API.apiUri.event.base,{params: para}).then((res) => {
           let {code, msg, data, totalRecords} = res.data;
-          this.eventList = data;
-          this.total = totalRecords;
+          if(code === 0){
+             this.eventList = data;
+             this.total = totalRecords;
+          }
         })
     },
   showDetail: function(id){
