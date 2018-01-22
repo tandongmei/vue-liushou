@@ -46,52 +46,7 @@
 <script>
 export default {
   data() {
-    return {
-    //   eventList: [
-    //       {
-    //         id:1,
-    //         title:'我们很坚强',
-    //         content:'10月5日，也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨剧，位于该村委会的南路小学的三名小学生名也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨剧，位于该村委会的南路小学的三名小学生名广东电白县观珠镇河垌村委会发生一起惨剧，位于该村委会的南路小学广东电白县观珠镇河垌村委会发生一起惨剧，位于该村委会的南路小学广东电白县观珠镇河垌村委会发生一起惨剧，位于该村委会的南路小学',
-    //         eventImg:'static/images/child/detail/2.jpg',
-    //         createdTime:'2017/12/09'
-    //       },
-    //       {
-    //         id:2,
-    //         title:'课堂上他们认真的脸',
-    //         content:'课堂上很坚强',
-    //         eventImg:'static/images/child/detail/3.jpg',
-    //         createdTime:'2017/11/10'
-    //       },
-    //       {
-    //         id:3,
-    //         title:'爸爸妈妈，你们回来了吗',
-    //         content:'爸妈回来了吗',
-    //         eventImg:'static/images/child/detail/4.jpg',
-    //         createdTime:'2017/09/10'
-    //       },
-    //       {
-    //         id:4,
-    //         title:'只有她一个人的家',
-    //         content:'一个人的家',
-    //         eventImg:'static/images/child/detail/5.jpg',
-    //         createdTime:'2017/03/10'
-    //       },
-    //       {
-    //         id:5,
-    //         title:'我想爸爸',
-    //         content:'想爸',
-    //         eventImg:'static/images/child/detail/6.jpg',
-    //         createdTime:'2017/11/10'
-    //       },
-    //       {
-    //         id:6,
-    //         title:'美丽的心灵',
-    //         content:'美丽',
-    //         eventImg:'static/images/child/detail/2.jpg',
-    //         createdTime:'2016/11/10'
-    //       }
-    //     ],
-    }
+    return {}
   }
   
 }

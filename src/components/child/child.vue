@@ -32,7 +32,7 @@ export default {
       sort: 'createdTime',
       dir: 'desc',
       total: 0,
-      filters: {}
+      filters: {isLeftChild: 1}
     }
   },
   methods: {
@@ -50,6 +50,7 @@ export default {
           dir: this.dir,
           filters: JSON.stringify(this.filters)   // 对象解析为字符串
         }
+        console.log("para.filters:"+para.filters);
         this.$Axios.get(this.$API.apiUri.event.base,{params: para}).then((res) => {
           let {code, msg, data, totalRecords} = res.data;
           if(code === 0){

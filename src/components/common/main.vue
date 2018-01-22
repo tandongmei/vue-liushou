@@ -79,11 +79,10 @@
       <el-row>
         <el-col :span="5" v-for="(item, index) in newsList" :key="item.id" :offset="index > 0 ?1 : 0">
           <el-card :body-style="{ padding: '0px' }">
-            <!-- <div class="newsTitle">{{item.title}}</div> -->
-            <img :src="item.newsImg" class="image">
+            <img :src="item.eventImg" class="image">
             <div style="padding: 14px;">
               <div><el-tag type="warning">{{ item.title }}</el-tag></div>
-              <span style="font-size:10px;display:block">{{item.content}}</span>
+              <span style="font-size:10px;display:block;margin-top:10px">{{item.content}}</span>
               <div class="bottom clearfix">
                 <el-button type="text" class="button" @click="showDetail(item.id)">查看详情</el-button>
               </div>
@@ -121,80 +120,8 @@
 export default {
     data () {
       return {
-        eventList: [
-          {
-            id:1,
-            title:'我们很坚强',
-            content:'我是小乖乖，我很坚强',
-            eventImg:'static/images/child/lunbo/1.jpg',
-            createdTime:'2017/12/09'
-          },
-          {
-            id:2,
-            title:'课堂上他们认真的脸',
-            content:'课堂上很坚强',
-            eventImg:'static/images/child/lunbo/2.jpg',
-            createdTime:'2017/11/10'
-          },
-          {
-            id:3,
-            title:'爸爸妈妈，你们回来了吗',
-            content:'爸妈回来了吗',
-            eventImg:'static/images/child/lunbo/3.jpg',
-            createdTime:'2017/09/10'
-          },
-          {
-            id:4,
-            title:'只有她一个人的家',
-            content:'一个人的家',
-            eventImg:'static/images/child/lunbo/4.jpg',
-            createdTime:'2017/03/10'
-          },
-          {
-            id:5,
-            title:'我想爸爸',
-            content:'想爸',
-            eventImg:'static/images/child/lunbo/5.jpg',
-            createdTime:'2017/11/10'
-          },
-          {
-            id:6,
-            title:'美丽的心灵',
-            content:'美丽',
-            eventImg:'static/images/child/lunbo/6.jpg',
-            createdTime:'2016/11/10'
-          }
-        ],
-        newsList: [
-          {
-            id:1,
-            title:'我有一颗感恩的心',
-            content:'10月5日，也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨剧，位于该村委会的南路小学的三名小学生..',
-            newsImg:'static/images/child/detail/t3.jpg',
-            createdTime:'2017/12/09'
-          },
-          {
-            id:2,
-            title:'美丽的心灵',
-            content:'10月5日，也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨剧，位于该村委会的南路小学的三名小学生名...',
-            newsImg:'static/images/child/detail/t1.jpg',
-            createdTime:'2017/12/09'
-          },
-          {
-            id:3,
-            title:'我有一颗感恩的心',
-            content:'10月5日，也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨剧，位于该村委会的南路小学的三名小学生名...',
-            newsImg:'static/images/child/detail/t3.jpg',
-            createdTime:'2017/12/09'
-          },
-          {
-            id:4,
-            title:'美丽的心灵',
-            content:'10月5日，也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨剧，位于该村委会的南路小学的三名小学生名...',
-            newsImg:'static/images/child/detail/t1.jpg',
-            createdTime:'2017/12/09'
-          }
-        ] 
+        eventList: [],
+        newsList: [] 
       }
     },
     methods: {
@@ -204,7 +131,38 @@ export default {
 
           // 路由跳转
           this.$router.push({path:'/home/detail'})
+      },
+      queryEvents: function(){
+        let para = {
+          pageNo: 1,
+          pageSize: 6,
+          sort: 'createdTime',
+          dir: 'desc',
+          filters: {isLeftChild: 1}
+        }
+         let para2 = {
+          pageNo: 1,
+          pageSize: 4,
+          sort: 'createdTime',
+          dir: 'desc',
+          filters: {isLeftChild: 0}
+        }
+        this.$Axios.get(this.$API.apiUri.event.base,{params: para}).then((res) => {
+            let { code, msg, data } = res.data;
+            if( code === 0){
+              this.eventList = data;
+            }
+        })
+        this.$Axios.get(this.$API.apiUri.event.base,{params: para2}).then((res) => {
+            let { code, msg, data } = res.data;
+            if( code === 0){
+              this.newsList = data;
+            }
+        })
       }
+    },
+    mounted: function(){
+      this.queryEvents();
     }
   }
 
