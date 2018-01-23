@@ -2,8 +2,8 @@
 <div >
   <!-- 首页轮播 -->
   <el-carousel  height="550px" interval="2000" arrow="always">
-    <el-carousel-item v-for="item in eventList" :key="item.id">
-       <img :src="item.eventImg" class="image">
+    <el-carousel-item v-for="item in eventList" :key="item.eventId">
+       <img :src="item.eventImg" class="image" @click="showDetail(item.eventId)">
     </el-carousel-item>
   </el-carousel>
 <!-- 首页警示条 -->
@@ -51,14 +51,14 @@
     </el-header>
     <el-main>
       <el-row>
-        <el-col :span="5" v-for="(item, index) in eventList" :key="item.id" :offset="index > 0 ?3 : 0">
+        <el-col :span="5" v-for="(item, index) in eventList" :key="item.eventId" :offset="index > 0 ?3 : 0">
           <el-card :body-style="{ padding: '20px' }">
-            <img :src="item.eventImg" class="image">
+            <img :src="item.eventImg" class="image" @click="showDetail(item.eventId)">
             <div style="padding: 14px;">
-              <span>{{item.title}}</span>
+              <span @click="showDetail(item.eventId)" class="toHand">{{item.title}}</span>
               <div class="bottom clearfix">
-                <time class="time">{{ item.createdTime }}</time>
-                <el-button type="text" class="button" @click="showDetail(item.id)">查看详情</el-button>
+                <time class="time">{{ formatTime(item.createdTime) }}</time>
+                <el-button type="text" class="button" @click="showDetail(item.eventId)">查看详情</el-button>
               </div>
             </div>
           </el-card>
@@ -77,14 +77,14 @@
     </el-header>
     <el-main>
       <el-row>
-        <el-col :span="5" v-for="(item, index) in newsList" :key="item.id" :offset="index > 0 ?1 : 0">
+        <el-col :span="5" v-for="(item, index) in newsList" :key="item.eventId" :offset="index > 0 ?1 : 0">
           <el-card :body-style="{ padding: '0px' }">
-            <img :src="item.eventImg" class="image">
+            <img :src="item.eventImg" class="image" @click="showDetail(item.eventId)">
             <div style="padding: 14px;">
-              <div><el-tag type="warning">{{ item.title }}</el-tag></div>
-              <span style="font-size:10px;display:block;margin-top:10px">{{item.content}}</span>
+              <div @click="showDetail(item.eventId)" class="toHand"><el-tag type="warning" >{{ item.title }}</el-tag></div>
+              <span class="toHand" style="font-size:10px;display:block;margin-top:10px" @click="showDetail(item.eventId)">{{item.content}}</span>
               <div class="bottom clearfix">
-                <el-button type="text" class="button" @click="showDetail(item.id)">查看详情</el-button>
+                <el-button type="text" class="button" @click="showDetail(item.eventId)">查看详情</el-button>
               </div>
             </div>
           </el-card>
@@ -102,35 +102,47 @@
       <span><img src="static/images/child/big/big1.png" class="image"></span>
       <span><img src="static/images/child/big/big1.png" class="image"></span>
     </div>
-    <!-- <el-row>
-      <el-col :span="12">
-        <div><img src="static/images/child/big/big1.png" class="image"></div>
-      </el-col>
-      <el-col :span="12"><img src="static/images/child/big/big1.png" class="image"></el-col>
-    </el-row> -->
-    <!-- <el-row>
-      <el-col :span="12"><img src="static/images/child/big/big1.png" class="image"></el-col>
-      <el-col :span="12"><img src="static/images/child/big/big1.png" class="image"></el-col>
-    </el-row> -->
+    
   </el-main>
 </el-container>
 </div>
 </template>
 <script>
+
+import { formatCreatedTime } from './../../utils/converterUtil';
+
 export default {
+  
     data () {
       return {
         eventList: [],
-        newsList: [] 
+        newsList: [],
+        event: {
+          eventId: '',
+          userId: '',
+          title: '',
+          content: '',
+          eventImg: '',
+          flag: '',
+          hostId: '',
+          createdTime: ''
+        } 
       }
     },
     methods: {
-      showDetail: function(id){
-          console.log(id);
+      formatTime: function(time){
+        return formatCreatedTime(time);
+      },
+      showDetail: function(eventId){
+        console.log(eventId);
           // 根据id查看详情
-
-          // 路由跳转
-          this.$router.push({path:'/home/detail'})
+        this.$Axios.get(this.$API.apiUri.event.base+"/"+eventId).then((res) => {
+        let { code, msg, data } = res.data;
+        if( code === 0){
+          this.event = data;
+          this.$router.push({path:'/home/detail', query:{event: this.event}, meta:{ scrollToTop: true }});
+        }
+      })
       },
       queryEvents: function(){
         let para = {
@@ -199,6 +211,10 @@ export default {
   .image {
     width: 100%;
     display: block;
+    cursor:pointer;
+  }
+  .toHand {
+    cursor:pointer;
   }
 
   .clearfix:before,

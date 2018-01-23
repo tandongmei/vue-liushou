@@ -25,5 +25,19 @@ new Vue({
   components: { App },
   render: h => h(App)
 })
+// 解决路由跳转页面回到顶部
+router.afterEach((to,from,next) => {
+  window.scrollTo(0,0);
+});
+
+
+// router.scrollBehavior (to, from, savedPosition) {
+//   if (savedPosition) {
+//     return savedPosition
+//   } else {
+//     return { x: 0, y: 0 }
+//   }
+// }
+
 
 

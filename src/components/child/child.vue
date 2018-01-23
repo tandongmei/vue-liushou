@@ -8,10 +8,10 @@
         </el-breadcrumb>
       </el-header>
       <!-- 卡片 -->
-      <div v-for="(item, index) in eventList" :key="item.id">
+      <div v-for="(item, index) in eventList" :key="item.eventId" >
         <el-card :body-style="{ padding: '25px' }" style="margin-bottom: 20px;height:400px">
-          <div style="height:50px;font-size:20px;color:#000;" class="titleDiv" @click="showDetail(item.id)"><a href="#" >{{item.title}}</a></div>
-          <div style="width:576px;height:206px" @click="showDetail(item.id)"><a href="#" ><img :src="item.eventImg" style="width:576px;height:206px"></a></div>
+          <div style="height:50px;font-size:20px;color:#000;" class="titleDiv" @click="showDetail(item.eventId)"><a href="#" >{{item.title}}</a></div>
+          <div style="width:576px;height:206px" @click="showDetail(item.eventId)"><a href="#" ><img :src="item.eventImg" style="width:576px;height:206px"></a></div>
           <div style="margin-top: 15px;color:rgb(176,176,176);font-size:13px;line-height:20px"><span>{{item.content}}</span></div>
         </el-card>
       </div>
@@ -32,7 +32,17 @@ export default {
       sort: 'createdTime',
       dir: 'desc',
       total: 0,
-      filters: {isLeftChild: 1}
+      filters: {isLeftChild: 1},
+      event: {
+        eventId: '',
+        userId: '',
+        title: '',
+        content: '',
+        eventImg: '',
+        flag: '',
+        hostId: '',
+        createdTime: ''
+      }
     }
   },
   methods: {
@@ -59,12 +69,26 @@ export default {
           }
         })
     },
-  showDetail: function(id){
-      console.log(id);
+  showDetail: function(eventId){
+      // console.log(eventId);
       // 根据id查看详情
-
-      // 路由跳转
-      this.$router.push({path:'/home/detail'})
+      this.$Axios.get(this.$API.apiUri.event.base+"/"+eventId).then((res) => {
+        let { code, msg, data } = res.data;
+        if( code === 0){
+          this.event = data;
+          console.log("eventId:"+this.event.eventId);
+          // console.log("userId:"+this.event.userId);
+          // console.log("title:"+this.event.title);
+          // console.log("content:"+this.event.content);
+          // console.log("eventImg:"+this.event.eventImg);
+          // console.log("flag:"+this.event.flag);
+          // console.log("hostId:"+this.event.hostId);
+          // console.log("createdTime:"+this.event.createdTime);
+          // 路由跳转
+          this.$router.push({path:'/home/detail', query:{event: this.event}});
+        }
+      })
+      
     }
   },
   // 生命周期函数
