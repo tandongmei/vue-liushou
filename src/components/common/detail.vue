@@ -23,7 +23,9 @@
         </div>
         <!-- 评论区 -->
         <div style="margin:30px;padding:20px;height:800px;background-color:rgb(243, 243, 243);border:1px solid #009688;border-radius:25px;">
-          发表评论
+          <div style="height:150px;background-color:#fff;border-radius:25px;margin:10px">
+             <input type="text" class="inputStyle">    
+          </div>
         </div>
       </el-main>
   </div>
@@ -50,6 +52,21 @@ export default {
 }
 </script>
 <style>
-
+.inputStyle {
+  box-sizing: border-box;
+  text-align:center;
+  font-size:1.4em;
+  height:2.7em;
+  border-radius:4px;
+  border:1px solid #ff3;
+  color:#6a6f77;
+  -web-kit-appearance:none;
+  -moz-appearance: none;
+  display:block;
+  outline:0;
+  padding:0 1em;
+  text-decoration:none;
+  width:100%;
+}
 </style>
 
