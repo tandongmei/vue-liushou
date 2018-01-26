@@ -1,7 +1,7 @@
 <template>
 <div>
-   <el-container style="background-image:url('static/images/common/back7.jpg');height:1050px;">
-       <el-main style="background-color:#FFFFFF;width:400px;margin:50px 350px;border-radius:25px;">
+   <el-container style="background-image:url('static/images/common/back7.jpg');height:850px;">
+       <el-main style="background-color:#FFFFFF;width:400px;margin:50px 350px 450px 350px;border-radius:25px;">
            <div style="text-align:center;font-family:blod;font-size:35px;"><span style="font-color:red">注册</span></div>
            <el-form :model="user" :rules="rules" ref="userForm" label-width="110px" class="demo-ruleForm">
                 <el-form-item label="用户昵称" prop="nickName">
@@ -176,11 +176,13 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
         this.$refs[userForm].validate((valid) => {
           if (valid) {
             let para = this.user;
+            
             this.$Axios.post(this.$API.apiUri.user.base,para).then((res) => {
               let {code,msg,data} = res.data;
               if(code === 0){
                 this.$refs['userForm'].resetFields();
                 this.$message.success('注册成功');
+                this.$router.push({path:'/shouye'});
                 // 注册成功
               }else if(code === 1002){
                 // 用户名已经存在

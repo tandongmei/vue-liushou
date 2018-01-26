@@ -60,12 +60,16 @@
           if (valid) {
             var nickName = this.user.nickName;
             var password = this.user.password;
+            let _this = this;
             this.$Axios.post(this.$API.apiUri.user.login+ "?nickName=" + nickName + "&password=" + password).then((res) => {
                 let {code,msg,data} = res.data;
                 if(code === 0){
                   // 登陆成功
                   this.$refs['userForm'].resetFields();
                   this.$message.success('登陆成功');
+                  // _this.nickName = data.nickName;
+                console.log("1---带数据："+data.nickName);
+                _this.$emit('userSignIn', data.nickName);
                 }else if(code === 1001){
                     this.$message.error('用户不存在');
                 }else if(code === -2){

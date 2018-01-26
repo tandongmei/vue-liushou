@@ -22,9 +22,15 @@
                 </el-submenu>
                 <el-menu-item index="4">心灵大使</el-menu-item>
                 <el-menu-item index="5">亲子互动</el-menu-item>
-                
               </el-col>
-              <el-col :span="3">
+              <el-col v-if="nickName"  :span="3">
+                <el-submenu index="6">
+                    <template slot="title">{{nickName}}</template>
+                    <el-menu-item index="6-1"><router-link to="/home/loveUser">修改资料</router-link></el-menu-item>
+                    <el-menu-item index="6-2"><router-link to="/home/assist">退出登陆</router-link></el-menu-item>
+                </el-submenu>
+              </el-col>
+              <el-col v-else :span="3">
                 <el-menu-item index="6"><router-link to="/login">登陆</router-link></el-menu-item>
                 <el-menu-item index="7"><router-link to="/register">注册</router-link></el-menu-item>
               </el-col>
@@ -40,10 +46,18 @@ export default {
   data() {
       return {
         activeIndex: '1',
-        activeIndex2: '1'
+        activeIndex2: '1',
+        nickName: ''
       };
     },
     methods: {
+      // userLogin(nickName){
+      //     console.log("sessionStorage.nickName"+sessionStorage.nickName);
+      //     console.log("2---"+nickName);
+      //   sessionStorage.nickName = nickName;
+      //   this.nickName = sessionStorage.nickName;
+      //   console.log("3---"+this.nickName);
+      // },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       }
