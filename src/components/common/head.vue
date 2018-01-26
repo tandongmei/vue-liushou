@@ -47,7 +47,7 @@ export default {
       return {
         activeIndex: '1',
         activeIndex2: '1',
-        nickName: ''
+        nickName: sessionStorage.getItem('key')
       };
     },
     methods: {

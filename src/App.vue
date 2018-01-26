@@ -24,7 +24,7 @@
   export default {
     data () {
       return {
-        nickName: sessionStorage.nickName
+        nickName: ''
       }
     },
     components: {
@@ -33,11 +33,8 @@
     },
     methods: {
         userLogin(nickName){
-          console.log("sessionStorage.nickName"+sessionStorage.nickName);
-          console.log("2---"+nickName);
-        sessionStorage.nickName = nickName;
-        this.nickName = sessionStorage.nickName;
-        console.log("3---"+this.nickName);
+          sessionStorage.setItem("key", nickName);
+          console.log("4---"+sessionStorage.getItem('key'));
       }
     }
   }
