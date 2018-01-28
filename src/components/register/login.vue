@@ -10,13 +10,10 @@
                 <el-form-item label="用户密码" prop="password">
                     <el-input  v-model.trim="user.password" suffix-icon="el-icon-edit"></el-input>
                 </el-form-item>
-                <el-form-item label="确认密码" prop="rePassword">
-                    <el-input  v-model.trim="user.rePassword" suffix-icon="el-icon-edit"></el-input>
-                </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('userForm')">登陆</el-button>
                     <el-button @click="resetForm('userForm')">重置</el-button>
-                </el-form-item>
+                </el-form-item>  
             </el-form>
        </el-main>
    </el-container> 
@@ -25,15 +22,6 @@
 <script>
   export default {
     data() {
-      const validateRePassword = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error('请输入确认密码'));
-        }else if(value != this.user.password){
-          callback(new Error('两次密码输入不一致'));
-        } else {
-          callback();
-        }
-      };
 
       return {
         user: {
@@ -47,10 +35,8 @@
           ],
           password: [
             { required: true, message: '请输入密码', trigger: 'blur' }
-          ],
-          rePassword: [
-            { required: true, trigger: 'blur', validator: validateRePassword }
           ]
+         
         }
       };
     },
