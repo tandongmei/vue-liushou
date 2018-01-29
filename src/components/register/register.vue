@@ -176,14 +176,15 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
         this.$refs[userForm].validate((valid) => {
           if (valid) {
             let para = this.user;
-            
+            let _this = this;
             this.$Axios.post(this.$API.apiUri.user.base,para).then((res) => {
               let {code,msg,data} = res.data;
               if(code === 0){
                 this.$refs['userForm'].resetFields();
                 this.$message.success('注册成功');
+                _this.$emit('userSignIn', data.nickName); // 向父组件传值
                 this.$router.push({path:'/shouye'});
-                // 注册成功
+                location.reload(); // 刷新页面
               }else if(code === 1002){
                 // 用户名已经存在
                 this.$message.error('用户名已经存在');

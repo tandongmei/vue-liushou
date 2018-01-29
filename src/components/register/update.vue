@@ -74,6 +74,8 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
             } else {
             callback();
          }
+        }else {
+          callback();
         }
       };
       const validateTel = (rule, value, callback) => {
@@ -83,7 +85,9 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
         } else {
           callback();
         }
-       }
+       }else {
+          callback();
+        }
        
       };
       const validateEmail = (rule, value, callback) => {
@@ -93,6 +97,8 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
             } else {
             callback();
             }
+        }else {
+          callback();
         }
       };
       const validatePayNo = (rule, value, callback) => {
@@ -102,6 +108,8 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
             } else {
             callback();
             }
+        }else {
+          callback();
         }
       };
       return {
@@ -114,7 +122,7 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
           age: '',
           tel: '',
           email: '',
-          isLeftChild: 0,
+          isLeftChild: 1,
           headImg: '',
           payNo: ''
         },
@@ -152,13 +160,11 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
             })
         },
         submitForm(userForm) {
-            alert("12");
             this.$refs[userForm].validate((valid) => {
-                alert("34");
             if (valid) {
                 let para = this.user;
                 let id = this.user.userId;
-                console.log("id:"+id+"   para:"+para);
+                let _this = this;
                 this.$Axios.put(this.$API.apiUri.user.base+"/"+id,{
                     nickName: this.user.nickName,
                     name: this.user.name,
@@ -172,10 +178,11 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
                 }).then((res) => {
                 let {code,msg,data} = res.data;
                 if(code === 0){
-                    console.log("sessionStorage.getItem:"+sessionStorage.getItem('nickName'));
                     this.$refs['userForm'].resetFields();
                     this.$message.success('修改成功');
+                    _this.$emit('userSignIn', data.nickName); // 向父组件传值
                     this.$router.push({path:'/shouye'});
+                    location.reload(); // 刷新页面
                 }else if(code === 1002){
                     // 用户名已经存在
                     this.$message.error('用户名已经存在');

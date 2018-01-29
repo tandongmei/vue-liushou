@@ -23,7 +23,6 @@
   export default {
     data () {
       return {
-        nickName: ''
       }
     },
     components: {
@@ -32,6 +31,7 @@
     },
     methods: {
         userLogin(nickName){
+          console.log("001nickName:"+nickName);
           sessionStorage.setItem("nickName", nickName);
       }
     }

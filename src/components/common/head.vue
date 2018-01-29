@@ -25,7 +25,7 @@
               </el-col>
               <el-col v-if="nickName"  :span="3">
                 <el-submenu index="6">
-                    <template slot="title">{{nickName}}</template>
+                    <template slot="title"><img src="static/images/user/moren.jpg" style="width:38px;height:38px;border-radius:120px;margin-right:5px">{{nickName}}</template>
                     <el-menu-item index="6-1"><router-link to="/update">修改资料</router-link></el-menu-item>
                     <el-menu-item index="6-2"><router-link to="/home/assist">退出登陆</router-link></el-menu-item>
                 </el-submenu>

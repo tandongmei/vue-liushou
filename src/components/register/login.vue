@@ -53,10 +53,9 @@
                   // 登陆成功
                   this.$refs['userForm'].resetFields();
                   this.$message.success('登陆成功');
-                // console.log("1---带数据："+data.nickName);
-                _this.$emit('userSignIn', data.nickName); // 向父组件传值
-                this.$router.push({path:'/shouye'});
-                location.reload();
+                  _this.$emit('userSignIn', data.nickName); // 向父组件传值
+                  this.$router.push({path:'/shouye'});
+                  location.reload();
                 }else if(code === 1001){
                     this.$message.error('用户不存在');
                 }else if(code === -2){
