@@ -10,6 +10,7 @@ import Home from '../components/common/home.vue'
 */
 import Register from '../components/register/register'
 import Login from '../components/register/login'
+import Update from '../components/register/update'
 
 /**
  * /components/child
@@ -41,7 +42,7 @@ let routes = [
       path: '/shouye',
       component: Main
     },
-// 注册，登陆
+// 注册，登陆,资料修改
     {
       path: '/register',
       component: Register
@@ -49,6 +50,10 @@ let routes = [
     {
       path: '/login',
       component: Login
+    },
+    {
+      path: '/update',
+      component: Update
     },
 // 留守之家：关爱留守，寻求爱心
     // {

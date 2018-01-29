@@ -3,7 +3,6 @@
   <el-container>
     <el-header style="width:100%;height:60px;position:fixed;top:0px;left:0;z-index:50;margin-left:-20px">
       <head-vue ></head-vue>
-      <span>LLL{{nickName}}</span>
     </el-header>
 
     <el-main >
@@ -33,8 +32,7 @@
     },
     methods: {
         userLogin(nickName){
-          sessionStorage.setItem("key", nickName);
-          console.log("4---"+sessionStorage.getItem('key'));
+          sessionStorage.setItem("nickName", nickName);
       }
     }
   }

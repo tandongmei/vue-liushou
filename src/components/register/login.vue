@@ -8,7 +8,7 @@
                     <el-input v-model.trim="user.nickName" suffix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item label="用户密码" prop="password">
-                    <el-input  v-model.trim="user.password" suffix-icon="el-icon-edit"></el-input>
+                    <el-input  v-model.trim="user.password" type="password" suffix-icon="el-icon-edit"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('userForm')">登陆</el-button>

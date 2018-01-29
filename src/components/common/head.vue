@@ -26,7 +26,7 @@
               <el-col v-if="nickName"  :span="3">
                 <el-submenu index="6">
                     <template slot="title">{{nickName}}</template>
-                    <el-menu-item index="6-1"><router-link to="/home/loveUser">修改资料</router-link></el-menu-item>
+                    <el-menu-item index="6-1"><router-link to="/update">修改资料</router-link></el-menu-item>
                     <el-menu-item index="6-2"><router-link to="/home/assist">退出登陆</router-link></el-menu-item>
                 </el-submenu>
               </el-col>
@@ -47,17 +47,10 @@ export default {
       return {
         activeIndex: '1',
         activeIndex2: '1',
-        nickName: sessionStorage.getItem('key')
+        nickName: sessionStorage.getItem('nickName')
       };
     },
     methods: {
-      // userLogin(nickName){
-      //     console.log("sessionStorage.nickName"+sessionStorage.nickName);
-      //     console.log("2---"+nickName);
-      //   sessionStorage.nickName = nickName;
-      //   this.nickName = sessionStorage.nickName;
-      //   console.log("3---"+this.nickName);
-      // },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       }
