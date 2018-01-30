@@ -19,7 +19,7 @@
                 <el-form-item label="上传头像" prop="headImg">
                   <el-upload
                       class="avatar-uploader"
-                      action="http://localhost:8080/api/user/upload"
+                      action="http://localhost:8080/api/event/upload"
                       :show-file-list="false"
                       :on-success="handleAvatarSuccess"
                       :before-upload="beforeAvatarUpload">
@@ -180,7 +180,7 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
                 if(code === 0){
                     this.$refs['userForm'].resetFields();
                     this.$message.success('修改成功');
-                    _this.$emit('userSignIn', data.nickName); // 向父组件传值
+                     _this.$emit('userSignIn', [data.nickName,data.headImg]); // 向父组件传值,传过去的是一个数组
                     this.$router.push({path:'/shouye'});
                     location.reload(); // 刷新页面
                 }else if(code === 1002){

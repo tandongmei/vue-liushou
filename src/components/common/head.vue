@@ -25,9 +25,9 @@
               </el-col>
               <el-col v-if="nickName"  :span="3">
                 <el-submenu index="6">
-                    <template slot="title"><img src="static/images/user/moren.jpg" style="width:38px;height:38px;border-radius:120px;margin-right:5px">{{nickName}}</template>
+                    <template slot="title"><img :src="headImg" style="width:38px;height:38px;border-radius:120px;margin-right:5px">{{nickName}}</template>
                     <el-menu-item index="6-1"><router-link to="/update">修改资料</router-link></el-menu-item>
-                    <el-menu-item index="6-2"><router-link to="/home/assist">退出登陆</router-link></el-menu-item>
+                    <el-menu-item index="6-2" @click="exit">退出登陆</el-menu-item>
                 </el-submenu>
               </el-col>
               <el-col v-else :span="3">
@@ -39,20 +39,44 @@
       </div>
     </el-col>
   </el-row>
+  <!-- 退出登录弹框 -->
+  <el-dialog
+    title="提示"
+    :visible.sync="dialogVisible"
+    :modal-append-to-body=false
+    width="30%"
+    >
+    <span style="font-size:16px">确定退出登录吗?</span>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="cancleSubmit">确 定</el-button>
+    </span>
+  </el-dialog>
   </div>
 </template>
 <script>
 export default {
   data() {
       return {
+        dialogVisible: false,
         activeIndex: '1',
         activeIndex2: '1',
-        nickName: sessionStorage.getItem('nickName')
+        nickName: sessionStorage.getItem('nickName'),
+        headImg: sessionStorage.getItem('headImg')
       };
     },
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
+      },
+      exit: function(){
+        this.dialogVisible = true;
+      },
+      cancleSubmit: function(){
+        this.dialogVisible = false;
+        // 从sessionStorage删除所有保存的数据
+        sessionStorage.clear();
+        location.reload(); // 刷新页面
       }
     }
 }

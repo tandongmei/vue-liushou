@@ -53,7 +53,7 @@
                   // 登陆成功
                   this.$refs['userForm'].resetFields();
                   this.$message.success('登陆成功');
-                  _this.$emit('userSignIn', data.nickName); // 向父组件传值
+                  _this.$emit('userSignIn', [data.nickName,data.headImg]); // 向父组件传值,传过去的是一个数组
                   this.$router.push({path:'/shouye'});
                   location.reload();
                 }else if(code === 1001){

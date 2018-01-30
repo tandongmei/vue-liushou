@@ -182,7 +182,7 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
               if(code === 0){
                 this.$refs['userForm'].resetFields();
                 this.$message.success('注册成功');
-                _this.$emit('userSignIn', data.nickName); // 向父组件传值
+                _this.$emit('userSignIn', [data.nickName,data.headImg]); // 向父组件传值,传过去的是一个数组
                 this.$router.push({path:'/shouye'});
                 location.reload(); // 刷新页面
               }else if(code === 1002){

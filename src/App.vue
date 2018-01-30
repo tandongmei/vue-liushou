@@ -30,9 +30,9 @@
       footVue
     },
     methods: {
-        userLogin(nickName){
-          console.log("001nickName:"+nickName);
-          sessionStorage.setItem("nickName", nickName);
+        userLogin(arr){  // 传过来的是一个数组
+          sessionStorage.setItem("nickName", arr[0]);
+          sessionStorage.setItem("headImg", arr[1]);
       }
     }
   }
