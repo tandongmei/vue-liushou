@@ -69,11 +69,9 @@ export default {
 
   .box-card {
     margin-bottom: 20px;
+    width: 290px;
   }
 
-  .el-card__body {
-    width: 250px;
-  }
 </style>
 
 
