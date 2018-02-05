@@ -14,6 +14,9 @@ export default {
         },
         'event': {
             'base': HOST[ENV] + '/api/event'           
+        },
+        'comment': {
+            'base': HOST[ENV] + '/api/comment'
         }
     }
 }

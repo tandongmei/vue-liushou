@@ -70,6 +70,10 @@ export default {
   .box-card {
     margin-bottom: 20px;
   }
+
+  .el-card__body {
+    width: 250px;
+  }
 </style>
 
 

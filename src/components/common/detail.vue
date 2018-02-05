@@ -35,12 +35,23 @@
           <!-- 所有评论 -->
           <div style="margin:100px 20px;background-color:#fff;border-radius:25px;">
             <div style="height:40px;background-color:rgb(250, 250, 250);font-size:14px;color:rgb(119, 119, 119);line-height:40px;padding-left:10px;font-weight:bold">共收到13条评论</div>
-              <div v-for="(item, index) in commentList" :key="item.commentId" style="padding: 20px;min-height:50px;border-top:1px solid #eee;overflow: hidden;">
-                <div style="float:left;"><img :src="item.replayUserHeadImg" style="width:48px;height:48px;border-radius:120px"></div>
-                <div style="float:right;width:550px">
-                  <div><span style="color:#555;font-weight:bold">{{item.replayUserName}}</span><span style="color:#777;padding:20px">{{index+1}}楼</span><span style="color:#777;">{{item.createdTime}}</span></div>
+              <!-- 评论区 -->
+              <div v-for="(item, index) in commentList" :key="item.commentId" style="padding: 20px;border-top:1px solid #eee;overflow: hidden;">
+                <div style="float:left;"><img :src="item.replayUser.headImg" style="width:48px;height:48px;border-radius:120px"></div>
+                <div style="float:right;width:580px">
+                  <div><span style="color:#555;font-weight:bold">{{item.replayUser.nickName}}</span><span style="color:#777;padding:20px">{{index+1}}楼</span><span style="color:#777;">{{item.createdTime}}</span></div>
                   <div style="color:#777;font-size:14px;line-height:20px;margin-top:10px">{{item.replayContent}}</div>
-                </div>
+              <!-- 回复区 -->
+              <div v-if="item.commentList != null" >
+                  <div class="box-card">
+                    <div v-for="(item, index) in item.commentList" :key="item.commentId" class="item">
+                      <img :src="item.replayUser.headImg" style="width:40px;height:40px;border-radius:120px;display:block;float:left">
+                      <span style="font-size:14px;color:rgb(119, 119, 119);display:block;padding-left:50px">{{item.replayUser.nickName}}<span style="color: rgb(85, 85, 85);font-weight:bold">&nbsp;&nbsp;&nbsp;回复&nbsp;&nbsp;&nbsp;</span>{{item.replayCommentUser.nickName}}&nbsp;:&nbsp;{{item.replayContent}}</span>
+                      <span style="font-size:12px;color:rgb(119, 119, 119);display:block;padding-left:50px">&nbsp;&nbsp;&nbsp;2017/12/12</span>
+                    </div>
+                  </div>
+              </div>
+              </div>
               </div>
           </div>
         </div>
@@ -61,56 +72,7 @@ export default {
         hostId: '',
         createdTime: ''
       },
-      commentList: [
-        {
-          commentId: 1,
-          eventId: 1,
-          replayUserName: 'wangwu',
-          replayUserHeadImg: 'static/images/child/detail/1.jpg',
-          replayContent: '写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错写的很不错。',
-          createdTime: '2018/12/12'
-        },
-        {
-          commentId: 2,
-          eventId: 1,
-          replayUserName: 'wangwu',
-          replayUserHeadImg: 'static/images/child/detail/1.jpg',
-          replayContent: '写的很不错。',
-          createdTime: '2018/12/12'
-        },
-        {
-          commentId: 3,
-          eventId: 1,
-          replayUserName: 'wenwne',
-          replayUserHeadImg: 'static/images/child/detail/1.jpg',
-          replayContent: '写的很不错。',
-          createdTime: '2018/12/12'
-        },
-        {
-          commentId: 4,
-          eventId: 1,
-          replayUserName: 'sunyang',
-          replayUserHeadImg: 'static/images/child/detail/1.jpg',
-          replayContent: '写的很不错。',
-          createdTime: '2018/12/12'
-        },
-        {
-          commentId: 5,
-          eventId: 1,
-          replayUserName: '乖乖',
-          replayUserHeadImg: 'static/images/child/detail/1.jpg',
-          replayContent: '写的很不错。',
-          createdTime: '2018/12/12'
-        },
-        {
-          commentId: 6,
-          eventId: 1,
-          replayUserName: '吉吉',
-          replayUserHeadImg: 'static/images/child/detail/1.jpg',
-          replayContent: '写的很不错。',
-          createdTime: '2018/12/12'
-        }
-      ]
+      commentList: []
     }
   },
   methods: {
@@ -118,6 +80,15 @@ export default {
   },
   mounted: function(){
     this.event = this.$route.query.event;
+    let eventId = this.event.eventId;
+    this.$Axios.get(this.$API.apiUri.comment.base+"/"+eventId).then((res) => {
+      let {code, msg, data } = res.data;
+      if(code === 0){
+        console.log("data:"+data);
+        this.commentList = data;
+      }
+    })
+
   }
 }
 </script>
@@ -142,6 +113,15 @@ export default {
 .lineRight:hover {
   background-color:#55C55A;
   cursor: pointer;
+}
+
+
+.item {
+  padding: 10px 0;
+}
+
+.box-card {
+  width: 480px;
 }
 
 </style>
