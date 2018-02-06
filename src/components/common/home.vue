@@ -7,7 +7,7 @@
         </el-main>
         <!-- 侧边栏固定 -->
         <el-aside style="margin-top: 30px;margin-right: 70px;">
-          <el-card class="box-card">
+          <el-card class="box-cards" >
               <div class="title">
                 <span>排行榜</span>
               </div>
@@ -15,7 +15,7 @@
                 {{'列表内容 ' + o }}
               </div>
           </el-card>
-          <el-card class="box-card">
+          <el-card class="box-cards">
             <div class="title">
               <span>热门推荐</span>
             </div>
@@ -23,7 +23,7 @@
               {{'列表内容 ' + o }}
             </div>
           </el-card>
-          <el-card class="box-card">
+          <el-card class="box-cards">
             <div class="title">
               <span>最新文章</span>
             </div>
@@ -31,7 +31,7 @@
               {{'列表内容 ' + o }}
             </div>
           </el-card>
-          <el-card class="box-card">
+          <el-card class="box-cards">
             <div class="title">
               <span>随便看看</span>
             </div>
@@ -67,7 +67,7 @@ export default {
     margin-bottom: 13px;
   }
 
-  .box-card {
+  .box-cards {
     margin-bottom: 20px;
     width: 290px;
   }

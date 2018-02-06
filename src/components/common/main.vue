@@ -45,13 +45,13 @@
 </el-container>
 <!-- 首页图文 他们特殊的“故事“-->
 <el-container>
-  <el-main style="background-color:rgb(243,243,243);height:650px">
+  <el-main style="background-color:rgb(243,243,243);height:700px">
     <el-header height="80px" style="text-align:center;line-height:80px">
       <el-button type="success" plain ><router-link to="/home/child">他们特殊的“故事“>>></router-link></el-button>
     </el-header>
     <el-main>
       <el-row>
-        <el-col :span="5" v-for="(item, index) in eventList" :key="item.eventId" :offset="index > 0 ?3 : 0">
+        <el-col :span="6" v-for="(item, index) in eventList" :key="item.eventId" :offset="index > 0 ?2 : 0">
           <el-card :body-style="{ padding: '20px' }">
             <img :src="item.eventImg" class="image" @click="showDetail(item.eventId)">
             <div style="padding: 14px;">

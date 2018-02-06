@@ -5,7 +5,7 @@
            <div style="text-align:center;font-family:blod;font-size:35px;"><span style="font-color:red">注册</span></div>
            <el-form :model="user" :rules="rules" ref="userForm" label-width="110px" class="demo-ruleForm">
                 <el-form-item label="用户昵称" prop="nickName">
-                    <el-input v-model.trim="user.nickName" suffix-icon="el-icon-edit"></el-input>
+                    <el-input v-model.trim="user.nickName" suffix-icon="el-icon-edit" ></el-input>
                 </el-form-item>
                 <el-form-item label="用户密码" prop="password">
                     <el-input  v-model.trim="user.password" suffix-icon="el-icon-edit"></el-input>

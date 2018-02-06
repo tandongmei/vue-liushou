@@ -26,11 +26,11 @@
           <!-- 发表评论 -->
           <div style="font-size:25px;color:#67C23A;font-family:'微软雅黑'">说点什么吧_____</div>
           <div style="margin:10px;padding:10px;">
-             <el-input type="textarea" :rows="5" placeholder="请输入内容" v-model="event.content"> </el-input>
+             <el-input type="textarea" :rows="5" placeholder="请输入内容"  @focus="onFocus"> </el-input>
           </div>
           <div style="margin:10px;padding:10px">
             <div class="lineLeft"></div>
-            <div class="lineRight">发表评论</div>
+            <div class="lineRight" @click="beforeSubmit">发表评论</div>
           </div>
           <!-- 所有评论 -->
           <div style="margin:100px 20px;background-color:#fff;border-radius:25px;">
@@ -39,15 +39,41 @@
               <div v-for="(item, index) in commentList" :key="item.commentId" style="padding: 20px;border-top:1px solid #eee;overflow: hidden;">
                 <div style="float:left;"><img :src="item.replayUser.headImg" style="width:48px;height:48px;border-radius:120px"></div>
                 <div style="float:right;width:580px">
-                  <div><span style="color:#555;font-weight:bold">{{item.replayUser.nickName}}</span><span style="color:#777;padding:20px">{{index+1}}楼</span><span style="color:#777;">{{item.createdTime}}</span></div>
+                  <div>
+                    <span style="color:#555;font-weight:bold">{{item.replayUser.nickName}}</span><span style="color:#777;padding:20px">{{index+1}}楼</span><span style="color:#777;">{{item.createdTime}}</span>
+                    <span style="font-size:13px;color:red;padding-left:10px;cursor:pointer" @click="replayShow(item)">回复</span>
+                  </div>
                   <div style="color:#777;font-size:14px;line-height:20px;margin-top:10px">{{item.replayContent}}</div>
+                  <!-- 对别人评论点击回复 -->
+                  <div :class="{'show':item.isShow == 0}" >
+                    <el-input
+                      clearable
+                      type="textarea"
+                      :rows="2"
+                      placeholder="回复..."
+                      style="margin-top:10px"
+                      >
+                    </el-input>
+                    <el-tag type="warning" style="margin-top:10px;cursor:pointer;margin-left:510px">发表</el-tag>
+                  </div>
               <!-- 回复区 -->
               <div v-if="item.commentList != null" >
-                  <div class="box-card">
+                  <div >
                     <div v-for="(item, index) in item.commentList" :key="item.commentId" class="item">
                       <img :src="item.replayUser.headImg" style="width:40px;height:40px;border-radius:120px;display:block;float:left">
                       <span style="font-size:14px;color:rgb(119, 119, 119);display:block;padding-left:50px">{{item.replayUser.nickName}}<span style="color: rgb(85, 85, 85);font-weight:bold">&nbsp;&nbsp;&nbsp;回复&nbsp;&nbsp;&nbsp;</span>{{item.replayCommentUser.nickName}}&nbsp;:&nbsp;{{item.replayContent}}</span>
-                      <span style="font-size:12px;color:rgb(119, 119, 119);display:block;padding-left:50px">&nbsp;&nbsp;&nbsp;2017/12/12</span>
+                      <span style="font-size:12px;color:rgb(119, 119, 119);padding-left:50px">&nbsp;&nbsp;&nbsp;2017/12/12</span><span style="font-size:13px;color:red;padding-left:10px;cursor:pointer" @click="replayShow(item)">回复</span>
+                      <!-- 对别人评论点击回复 -->
+                      <div :class="{'show':item.isShow == 0}" >
+                        <el-input
+                          type="textarea"
+                          :rows="2"
+                          placeholder="回复..."
+                          style="margin-top:10px"
+                          >
+                        </el-input>
+                        <el-tag type="warning" style="margin-top:10px;cursor:pointer;margin-left:510px">发表</el-tag>
+                      </div>
                     </div>
                   </div>
               </div>
@@ -56,6 +82,18 @@
           </div>
         </div>
       </el-main>
+      <!-- 提示用户登陆弹出框 -->
+      <el-dialog
+        title="提示"
+        :visible.sync="dialogVisible"
+        width="30%"
+        >
+        <span>你还没有登陆，是否前去登陆?</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="submitConfirm">确 定</el-button>
+        </span>
+      </el-dialog>
   </div>
 </template>
 <script>
@@ -72,11 +110,57 @@ export default {
         hostId: '',
         createdTime: ''
       },
-      commentList: []
+      comment: {
+        commentId: '',
+        eventId: '',
+        replayUserId: '',
+        replayUser: {},  // 评论者，当前登录用户
+        replayCommentUser: {},  // 评论谁，谁发表的文章，或者谁发表的评论
+        replayContent: '',  // 回复内容
+        createdTime: ''
+      },
+      commentList: [],
+      dialogVisible: false,
+      isShow: false
     }
   },
   methods: {
-   
+    onFocus: function(){
+      // 先从sessionStorage判断用户是否登陆，若没有则提示用户登陆
+      var nickName = sessionStorage.getItem('nickName');
+      console.log("登陆信息："+nickName);
+      if(nickName == null){
+        // 尚未登陆
+        this.dialogVisible = true;
+      }
+    },
+    // 发表评论按钮
+    beforeSubmit: function(){
+      var nickName = sessionStorage.getItem('nickName');
+      console.log("登陆信息："+nickName);
+      if(nickName == null){
+        // 尚未登陆
+        this.dialogVisible = true;
+      }
+      // 已经登陆，提交评论到后台
+
+    },
+    submitConfirm: function(){
+      this.dialogVisible = false;
+      this.$router.push({path:'/login'});
+    },
+    // 处理回复框是否显示
+    replayShow: function(item){
+      console.log("item.isShow:"+item.isShow);
+      // if(item.isShow === '0'){
+      //   item.isShow = 1;
+      // }
+      // if(item.isShow === '1'){
+      //   item.isShow = 0;
+      // }
+      item.isShow = 1;
+      console.log("item.isShow after:"+item.isShow);     
+    }
   },
   mounted: function(){
     this.event = this.$route.query.event;
@@ -120,9 +204,10 @@ export default {
   padding: 10px 0;
 }
 
-.box-card {
-  width: 580px;
+.show {
+  display: none;
 }
+
 
 </style>
 
