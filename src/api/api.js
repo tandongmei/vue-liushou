@@ -17,6 +17,9 @@ export default {
         },
         'comment': {
             'base': HOST[ENV] + '/api/comment'
+        },
+        'file': {
+            'base': HOST[ENV] + '/api/file'
         }
     }
 }

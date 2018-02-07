@@ -19,7 +19,8 @@
                 <el-form-item label="上传头像" prop="headImg">
                   <el-upload
                       class="avatar-uploader"
-                      action="http://localhost:8080/api/event/upload"
+                      action="https://up.qiniup.com"
+                      :data="postData"
                       :show-file-list="false"
                       :on-success="handleAvatarSuccess"
                       :before-upload="beforeAvatarUpload">
@@ -113,6 +114,10 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
         }
       };
       return {
+        postData: {
+            token: '',
+            key: ''
+        },
         filters: { nickName: sessionStorage.getItem('nickName')},
         user: {
           userId: '',
@@ -154,7 +159,6 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
             this.$Axios.get(this.$API.apiUri.user.base,{params: para}).then((res) => {
                 let { code, msg, data } = res.data;
                 if(code === 0){
-                    console.log("data:"+data);
                     this.user = data[0];
                 }
             })
@@ -200,22 +204,31 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
             this.$refs[formName].resetFields();
         },
         handleAvatarSuccess(res, file) {
-            this.user.headImg = URL.createObjectURL(file.raw);
+            console.log("file:"+file.name);
+            // this.user.headImg = URL.createObjectURL(file.raw);
+            this.user.headImg = "http://p3ga0tg9o.bkt.clouddn.com/"+file.name;
+            console.log("this.user.headImg:"+this.user.headImg);
         },
         beforeAvatarUpload(file) {
-            const isJPG = file.type === 'image/jpeg';
-            const isLt2M = file.size / 1024 / 1024 < 2;
-            if (!isJPG) {
-            this.$message.error('上传头像图片只能是 JPG 格式!');
-            }
-            if (!isLt2M) {
-            this.$message.error('上传头像图片大小不能超过 2MB!');
-            }
-            return isJPG && isLt2M;
+            let suffix = file.name;
+            let key = encodeURI(`${suffix}`);
+            this.postData.key = key;
+            return this.postData;
+        },
+        // 获取上传token
+        getToken(){
+            // 请求后台获取token
+            this.$Axios.get(this.$API.apiUri.file.base).then((res) => {
+                let { code, msg, data } = res.data;
+                if(code === 0){
+                    this.postData.token = data;
+                }
+            })
         }
     },
     mounted() {
        this.getUser();
+       this.getToken();
     }
   }
 </script>
