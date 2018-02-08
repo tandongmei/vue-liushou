@@ -77,6 +77,7 @@ export default {
         // 从sessionStorage删除所有保存的数据
         sessionStorage.clear();
         location.reload(); // 刷新页面
+        this.$router.push({path:'/shouye'}); // 去首页
       }
     }
 }

@@ -19,14 +19,14 @@
           <img :src="this.event.eventImg" style="width:600px">
         </div>
         <div style="margin:30px 30px 60px 30px">
-          <i class="el-icon-date"></i>{{ this.event.createdTime }}
+          <i class="el-icon-date"></i>{{ this.event.returnTime }}
         </div>
         <!-- 评论区 -->
         <div style="margin:30px;padding:20px;background-color:rgb(243, 243, 243);border:1px solid #009688;border-radius:25px;">
           <!-- 发表评论 -->
           <div style="font-size:25px;color:#67C23A;font-family:'微软雅黑'">说点什么吧_____</div>
           <div style="margin:10px;padding:10px;">
-             <el-input type="textarea" :rows="5" placeholder="请输入内容"  @focus="onFocus"> </el-input>
+             <el-input v-model="comment.replayContent" type="textarea" :rows="5" placeholder="请输入内容"  @focus="onFocus"> </el-input>
           </div>
           <div style="margin:10px;padding:10px">
             <div class="lineLeft"></div>
@@ -34,14 +34,14 @@
           </div>
           <!-- 所有评论 -->
           <div style="margin:100px 20px;background-color:#fff;border-radius:25px;">
-            <div style="height:40px;background-color:rgb(250, 250, 250);font-size:14px;color:rgb(119, 119, 119);line-height:40px;padding-left:10px;font-weight:bold">共收到13条评论</div>
+            <div style="height:40px;background-color:rgb(250, 250, 250);font-size:14px;color:rgb(119, 119, 119);line-height:40px;padding-left:10px;font-weight:bold">共收到{{this.totalCount}}条评论</div>
               <!-- 评论区 -->
-              <div v-for="(item, index) in commentList" :key="item.commentId" style="padding: 20px;border-top:1px solid #eee;overflow: hidden;">
+              <div v-for="(item, key, index) in commentList" :key="item.commentId" style="padding: 20px;border-top:1px solid #eee;overflow: hidden;">
                 <div style="float:left;"><img :src="item.replayUser.headImg" style="width:48px;height:48px;border-radius:120px"></div>
                 <div style="float:right;width:580px">
                   <div>
-                    <span style="color:#555;font-weight:bold">{{item.replayUser.nickName}}</span><span style="color:#777;padding:20px">{{index+1}}楼</span><span style="color:#777;">{{item.createdTime}}</span>
-                    <span style="font-size:13px;color:red;padding-left:10px;cursor:pointer" @click="replayShow(item)">回复</span>
+                    <span style="color:#555;font-weight:bold">{{item.replayUser.nickName}}</span><span style="color:#777;padding:20px;font-size:14px">{{item.returnTime}}</span>
+                    <span style="font-size:13px;color:red;padding-left:10px;cursor:pointer"  @click="replayShow(item)">回复</span>
                   </div>
                   <div style="color:#777;font-size:14px;line-height:20px;margin-top:10px">{{item.replayContent}}</div>
                   <!-- 对别人评论点击回复 -->
@@ -50,29 +50,31 @@
                       clearable
                       type="textarea"
                       :rows="2"
+                      v-model="comment.replayContent"
                       placeholder="回复..."
                       style="margin-top:10px"
                       >
                     </el-input>
-                    <el-tag type="warning" style="margin-top:10px;cursor:pointer;margin-left:510px">发表</el-tag>
+                    <el-tag type="warning" style="margin-top:10px;cursor:pointer;margin-left:510px"><span @click="beforeSubmit">发表</span></el-tag>
                   </div>
               <!-- 回复区 -->
               <div v-if="item.commentList != null" >
                   <div >
-                    <div v-for="(item, index) in item.commentList" :key="item.commentId" class="item">
+                    <div v-for="(item, key, index) in item.commentList" :key="item.commentId" class="item">
                       <img :src="item.replayUser.headImg" style="width:40px;height:40px;border-radius:120px;display:block;float:left">
                       <span style="font-size:14px;color:rgb(119, 119, 119);display:block;padding-left:50px">{{item.replayUser.nickName}}<span style="color: rgb(85, 85, 85);font-weight:bold">&nbsp;&nbsp;&nbsp;回复&nbsp;&nbsp;&nbsp;</span>{{item.replayCommentUser.nickName}}&nbsp;:&nbsp;{{item.replayContent}}</span>
-                      <span style="font-size:12px;color:rgb(119, 119, 119);padding-left:50px">&nbsp;&nbsp;&nbsp;2017/12/12</span><span style="font-size:13px;color:red;padding-left:10px;cursor:pointer" @click="replayShow(item)">回复</span>
+                      <span style="font-size:12px;color:rgb(119, 119, 119);padding-left:50px">&nbsp;&nbsp;&nbsp;{{item.returnTime}}</span><span style="font-size:13px;color:red;padding-left:10px;cursor:pointer"  @click="replayShow(item)">回复</span>
                       <!-- 对别人评论点击回复 -->
                       <div :class="{'show':item.isShow == 0}" >
                         <el-input
                           type="textarea"
                           :rows="2"
+                          v-model="comment.replayContent"
                           placeholder="回复..."
                           style="margin-top:10px"
                           >
                         </el-input>
-                        <el-tag type="warning" style="margin-top:10px;cursor:pointer;margin-left:510px">发表</el-tag>
+                        <el-tag type="warning" style="margin-top:10px;cursor:pointer;margin-left:510px"><span @click="beforeSubmit">发表</span></el-tag>
                       </div>
                     </div>
                   </div>
@@ -100,26 +102,16 @@
 export default {
   data() {
     return {
-      event: {
-        eventId: '',
-        userId: '',
-        title: '',
-        content: '',
-        eventImg: '',
-        flag: '',
-        hostId: '',
-        createdTime: ''
-      },
+      event: {},
       comment: {
-        commentId: '',
         eventId: '',
         replayUserId: '',
-        replayUser: {},  // 评论者，当前登录用户
-        replayCommentUser: {},  // 评论谁，谁发表的文章，或者谁发表的评论
-        replayContent: '',  // 回复内容
-        createdTime: ''
+        parentId: 0,  // 被回复人，谁发表的文章，或者谁发表的评论
+        replayContent: ''  // 回复内容
+        
       },
       commentList: [],
+      totalCount: 0,
       dialogVisible: false,
       isShow: false
     }
@@ -137,13 +129,22 @@ export default {
     // 发表评论按钮
     beforeSubmit: function(){
       var nickName = sessionStorage.getItem('nickName');
-      console.log("登陆信息："+nickName);
+      console.log("登陆信息2："+nickName);
       if(nickName == null){
         // 尚未登陆
         this.dialogVisible = true;
       }
       // 已经登陆，提交评论到后台
-
+      let para = {
+        eventId: this.event.eventId,
+        replayUserNickName: sessionStorage.getItem('nickName'),
+        replayContent: this.comment.replayContent,
+        parentId: this.comment.parentId
+      }
+      console.log("eventId:"+para.eventId);
+      console.log("replayUserNickName:"+para.replayUserNickName);
+      console.log("replayContent:"+para.replayContent);
+      console.log("parentId:"+para.parentId);
     },
     submitConfirm: function(){
       this.dialogVisible = false;
@@ -151,25 +152,27 @@ export default {
     },
     // 处理回复框是否显示
     replayShow: function(item){
-      console.log("item.isShow:"+item.isShow);
-      // if(item.isShow === '0'){
-      //   item.isShow = 1;
-      // }
-      // if(item.isShow === '1'){
-      //   item.isShow = 0;
-      // }
-      item.isShow = 1;
-      console.log("item.isShow after:"+item.isShow);     
+      // 先判断是否登陆
+      var nickName = sessionStorage.getItem('nickName');
+      if(nickName == null){
+        // 尚未登陆
+        this.dialogVisible = true;
+      }else{
+        // 已经登陆，打开评论框
+        item.isShow = 1;
+        this.comment.parentId = item.commentId;
+      }
     }
   },
   mounted: function(){
     this.event = this.$route.query.event;
     let eventId = this.event.eventId;
+    // 去后台查询事件下的所以评论
     this.$Axios.get(this.$API.apiUri.comment.base+"/"+eventId).then((res) => {
-      let {code, msg, data } = res.data;
+      let {code, msg, data, totalRecords } = res.data;
       if(code === 0){
-        console.log("data:"+data);
         this.commentList = data;
+        this.totalCount = totalRecords;
       }
     })
 
