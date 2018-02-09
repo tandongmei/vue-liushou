@@ -65,7 +65,7 @@
                       <span style="font-size:14px;color:rgb(119, 119, 119);display:block;padding-left:50px">{{item.replayUser.nickName}}<span style="color: rgb(85, 85, 85);font-weight:bold">&nbsp;&nbsp;&nbsp;回复&nbsp;&nbsp;&nbsp;</span>{{item.replayCommentUser.nickName}}&nbsp;:&nbsp;{{item.replayContent}}</span>
                       <span style="font-size:12px;color:rgb(119, 119, 119);padding-left:50px">&nbsp;&nbsp;&nbsp;{{item.returnTime}}</span><span style="font-size:13px;color:red;padding-left:10px;cursor:pointer"  @click="replayShow(item)">回复</span>
                       <!-- 对别人评论点击回复 -->
-                      <div :class="{'show':item.isShow == 0}" >
+                      <div :class="{'show':item.isShow == 0}">
                         <el-input
                           type="textarea"
                           :rows="2"
@@ -117,22 +117,41 @@ export default {
     }
   },
   methods: {
-    onFocus: function(){
-      // 先从sessionStorage判断用户是否登陆，若没有则提示用户登陆
+    // 1.该方法统一判断用户是否登陆
+    isLogin: function(){
+      var flag = true;
       var nickName = sessionStorage.getItem('nickName');
       console.log("登陆信息："+nickName);
       if(nickName == null){
         // 尚未登陆
-        this.dialogVisible = true;
+        flag = false;
+      }
+      return flag;
+    },
+    // 2.评论框获得焦点触发此函数
+    onFocus: function(){
+      console.log("!this.isLogin:"+!this.isLogin());
+      if(!this.isLogin()){
+          this.dialogVisible = true;
       }
     },
-    // 发表评论按钮
+    // 3.点击“回复”，触发此函数
+    replayShow: function(item){
+      if(!this.isLogin()){
+          this.dialogVisible = true;
+      }else{
+        // 已经登陆，打开评论框
+        console.log("item.isShow:"+item.isShow);
+        item.isShow = 1;
+        console.log("item.isShow2:"+item.isShow);
+        this.comment.parentId = item.commentId;
+      }
+    },
+
+    // 4.点击所有“发表”按钮触发此函数
     beforeSubmit: function(){
-      var nickName = sessionStorage.getItem('nickName');
-      console.log("登陆信息2："+nickName);
-      if(nickName == null){
-        // 尚未登陆
-        this.dialogVisible = true;
+      if(!this.isLogin()){
+          this.dialogVisible = true;
       }
       // 已经登陆，提交评论到后台
       let para = {
@@ -145,37 +164,44 @@ export default {
       console.log("replayUserNickName:"+para.replayUserNickName);
       console.log("replayContent:"+para.replayContent);
       console.log("parentId:"+para.parentId);
+      // 请求后台添加评论
+      this.$Axios.put(this.$API.apiUri.comment.base,para).then((res) => {
+        let {code, msg, data } = res.data;
+        if(code === 0){
+          this.$message.success('评论成功');
+          this.queryAllComments(this.event.eventId);
+          this.comment.parentId = 0;
+          this.comment.replayContent = '';
+        }
+        if(code === -1){
+          this.$message.success('会话失效，重新登录');
+          this.dialogVisible = true;
+        }
+      })
     },
+
     submitConfirm: function(){
       this.dialogVisible = false;
       this.$router.push({path:'/login'});
     },
-    // 处理回复框是否显示
-    replayShow: function(item){
-      // 先判断是否登陆
-      var nickName = sessionStorage.getItem('nickName');
-      if(nickName == null){
-        // 尚未登陆
-        this.dialogVisible = true;
-      }else{
-        // 已经登陆，打开评论框
-        item.isShow = 1;
-        this.comment.parentId = item.commentId;
-      }
+
+    
+
+    // 去后台查询事件下的所以评论
+    queryAllComments(eventId){
+      this.$Axios.get(this.$API.apiUri.comment.base+"/"+eventId).then((res) => {
+        let {code, msg, data, totalRecords } = res.data;
+        if(code === 0){
+          this.commentList = data;
+          this.totalCount = totalRecords;
+        }
+      })
     }
   },
   mounted: function(){
     this.event = this.$route.query.event;
     let eventId = this.event.eventId;
-    // 去后台查询事件下的所以评论
-    this.$Axios.get(this.$API.apiUri.comment.base+"/"+eventId).then((res) => {
-      let {code, msg, data, totalRecords } = res.data;
-      if(code === 0){
-        this.commentList = data;
-        this.totalCount = totalRecords;
-      }
-    })
-
+    this.queryAllComments(eventId);
   }
 }
 </script>
