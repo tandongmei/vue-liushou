@@ -77,13 +77,6 @@ export default {
         if( code === 0){
           this.event = data;
           console.log("eventId:"+this.event.eventId);
-          // console.log("userId:"+this.event.userId);
-          // console.log("title:"+this.event.title);
-          // console.log("content:"+this.event.content);
-          // console.log("eventImg:"+this.event.eventImg);
-          // console.log("flag:"+this.event.flag);
-          // console.log("hostId:"+this.event.hostId);
-          // console.log("createdTime:"+this.event.createdTime);
           // 路由跳转
           this.$router.push({path:'/home/detail', query:{event: this.event}});
         }
@@ -93,7 +86,6 @@ export default {
   },
   // 生命周期函数
   mounted: function(){
-    console.log("mountedkaishi");
     this.queryEvents();
   }
 

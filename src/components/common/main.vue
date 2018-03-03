@@ -82,7 +82,7 @@
             <img :src="item.eventImg" class="image" @click="showDetail(item.eventId)">
             <div style="padding: 14px;">
               <div @click="showDetail(item.eventId)" class="toHand"><el-tag type="warning" >{{ item.title }}</el-tag></div>
-              <span class="toHand" style="font-size:10px;display:block;margin-top:10px" @click="showDetail(item.eventId)">{{item.content}}</span>
+              <span class="toHand" style="font-size:12px;display:block;margin-top:10px" @click="showDetail(item.eventId)">{{item.content}}</span>
               <div class="bottom clearfix">
                 <el-button type="text" class="button" @click="showDetail(item.eventId)">查看详情</el-button>
               </div>

@@ -33,7 +33,7 @@
             <div class="lineRight" @click="beforeSubmit">发表评论</div>
           </div>
           <!-- 所有评论 -->
-          <div style="margin:100px 20px;background-color:#fff;border-radius:25px;">
+          <div style="margin:100px 10px;background-color:#fff;border-radius:25px;">
             <div style="height:40px;background-color:rgb(250, 250, 250);font-size:14px;color:rgb(119, 119, 119);line-height:40px;padding-left:10px;font-weight:bold">共收到{{this.totalCount}}条评论</div>
               <!-- 评论区 -->
               <div v-for="(item, key, index) in commentList" :key="item.commentId" style="padding: 20px;border-top:1px solid #eee;overflow: hidden;">

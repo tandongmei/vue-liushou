@@ -13,7 +13,7 @@
                 <el-submenu index="2">
                     <template slot="title">留守之家</template>
                     <el-menu-item index="2-1"><router-link to="/home/child">关爱留守</router-link></el-menu-item>
-                    <el-menu-item index="2-2"><router-link to="/home/help">寻求爱心</router-link></el-menu-item>
+                    <el-menu-item index="2-2"><router-link to="/home/help">寻求帮助</router-link></el-menu-item>
                 </el-submenu>
                 <el-submenu index="3">
                     <template slot="title">爱心公益</template>
@@ -26,8 +26,10 @@
               <el-col v-if="nickName"  :span="3">
                 <el-submenu index="6">
                     <template slot="title"><img :src="headImg" style="width:38px;height:38px;border-radius:120px;margin-right:5px">{{nickName}}</template>
-                    <el-menu-item index="6-1"><router-link to="/update">修改资料</router-link></el-menu-item>
-                    <el-menu-item index="6-2" @click="exit">退出登陆</el-menu-item>
+                    <el-menu-item index="6-1">我的评论<el-badge class="mark" :value="12" /></el-menu-item>
+                    <el-menu-item index="6-2" >我的回复<el-badge class="mark" :value="2" /></el-menu-item>
+                    <el-menu-item index="6-3"><router-link to="/update">修改资料</router-link></el-menu-item>
+                    <el-menu-item index="6-4" @click="exit">退出登陆</el-menu-item>
                 </el-submenu>
               </el-col>
               <el-col v-else :span="3">
