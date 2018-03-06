@@ -173,8 +173,8 @@ export default {
           this.comment.parentId = 0;
           this.comment.replayContent = '';
         }
-        if(code === -1){
-          this.$message.success('会话失效，重新登录');
+        if(code === -1 || code===1003){
+          this.$message.success(msg);
           this.dialogVisible = true;
         }
       })
@@ -192,7 +192,7 @@ export default {
       this.$Axios.get(this.$API.apiUri.comment.base+"/"+eventId).then((res) => {
         let {code, msg, data, totalRecords } = res.data;
         if(code === 0){
-          this.commentList = data;
+          this.commentList = data.commentList;
           this.totalCount = totalRecords;
         }
       })

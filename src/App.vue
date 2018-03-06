@@ -33,6 +33,8 @@
         userLogin(arr){  // 传过来的是一个数组
           sessionStorage.setItem("nickName", arr[0]);
           sessionStorage.setItem("headImg", arr[1]);
+          sessionStorage.setItem("noReadCommentCount",arr[2]);
+          sessionStorage.setItem("noReadReplyCount",arr[3]);
       }
     }
   }
