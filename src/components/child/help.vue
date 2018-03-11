@@ -12,7 +12,7 @@
           最新发表
       </el-header>  
       <el-table :data="eventList" stripe style="width: 100%">
-        <el-table-column prop="createdTime" label="发表日期"  width="180"></el-table-column>
+        <el-table-column prop="createdTime" label="发表日期" :formatter="formatTime"  width="180"></el-table-column>
         <el-table-column prop="nickName" label="发表人"  width="180"></el-table-column>
         <el-table-column prop="title" label="标题"></el-table-column>
       </el-table>
@@ -23,52 +23,45 @@
       </el-pagination>
       <!-- 发表文章 -->
       <div style="text-align:center;font-size:25px;background-color:#E4E7ED;margin-top:40px;padding-top:20px;color:#E6A23C">说出你的故事</div>
-      <el-form ref="form" :model="event" label-width="80px" style="padding:20px 20px;background-color:#E4E7ED">
+      <el-form ref="eventForm" :model="event" label-width="80px" style="padding:20px 20px;background-color:#E4E7ED">
         <el-form-item label="标题">
           <el-input v-model="event.title"></el-input>
         </el-form-item>
         <el-form-item label="详细描述">
           <el-input type="textarea" v-model="event.content" :rows="15" placeholder="请输入内容"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="所属模块">
-          <el-select v-model="form.region" placeholder="请选择所属模块">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item> -->
-        <el-form-item label="上传图片" prop="headImg">
+        <el-form-item label="上传图片" prop="eventImg">
           <el-upload
               class="avatar-uploader"
               action="https://up.qiniup.com"
-              :data="postData"
+              :data="this.postData"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload">
-              <img v-if="event.eventImg" :src="event.eventImg" class="avatar">
+              <img v-if="this.event.eventImg" :src="this.event.eventImg" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
-        <el-dialog
-          title="提示"
-          :visible.sync="dialogVisible"
-          width="30%"
-          >
-          <span>确认提交吗?</span>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="dialogVisible = false">取 消</el-button>
-            <el-button type="primary" @click="sumbitComfirm">确 定</el-button>
-          </span>
-        </el-dialog>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">确认发表</el-button>
           <el-button>取消</el-button>
         </el-form-item>
       </el-form>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%"
+      >
+      <span>确认发表吗?</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="sumbitComfirm">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
-import { formatCreatedTime } from '../../utils/validateUtil'
-
+import { formatCreatedTime } from '../../utils/converterUtil';
 
   export default {
     data() {
@@ -93,6 +86,10 @@ import { formatCreatedTime } from '../../utils/validateUtil'
       }
     },
     methods: {
+      formatTime: function(row,column,val){
+        console.log(val);
+        return formatCreatedTime(val);
+      },
       // 处理分页
       currentChange: function(val){
         this.pageNo = val;
@@ -119,18 +116,18 @@ import { formatCreatedTime } from '../../utils/validateUtil'
       sumbitComfirm: function() {
         this.dialogVisible = false;
         let para = this.event;
-        this.$Axios.put(this.$API.apiUri.event.base,{params: para}).then((res) => {
+        this.$Axios.put(this.$API.apiUri.event.base, para ).then((res) => {
           let {code, msg, data} = res.data;
             if(code === 0){
-              
+                this.$refs['eventForm'].resetFields();
+                this.$message.success('发表成功');
+                this.queryEvents();
+                location.reload(); // 刷新页面
             }
         } )
       },
       handleAvatarSuccess(res, file) {
-            console.log("file:"+file.name);
-            // this.user.headImg = URL.createObjectURL(file.raw);
-            this.event.headImg = "http://p3ga0tg9o.bkt.clouddn.com/"+file.name;
-            console.log("this.user.headImg:"+this.event.headImg);
+            this.event.eventImg = "http://p3ga0tg9o.bkt.clouddn.com/"+file.name;
         },
         beforeAvatarUpload(file) {
             let suffix = file.name;
@@ -140,7 +137,6 @@ import { formatCreatedTime } from '../../utils/validateUtil'
         },
       onSubmit() {
         this.dialogVisible = true;
-        console.log('submit!');
       },
       // 获取上传token
         getToken(){
@@ -153,9 +149,7 @@ import { formatCreatedTime } from '../../utils/validateUtil'
             })
         } 
     },
-    // computed: {
-    //   returnDate: formatCreatedTime(2222)
-    // },
+    
   // 生命周期函数
   mounted: function(){
      this.queryEvents();

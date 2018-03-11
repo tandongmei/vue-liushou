@@ -20,6 +20,12 @@ export default {
         },
         'file': {
             'base': HOST[ENV] + '/api/file'
+        },
+        'news': {
+            'base': HOST[ENV] + '/api/news'
+        },
+        'host': {
+            'base': HOST[ENV] + '/api/host'
         }
     }
 }

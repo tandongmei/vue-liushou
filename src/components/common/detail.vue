@@ -22,9 +22,9 @@
           <i class="el-icon-date"></i>{{ this.event.returnTime }}
         </div>
         <!-- 评论区 -->
-        <div style="margin:30px;padding:20px;background-color:rgb(243, 243, 243);border:1px solid #009688;border-radius:25px;">
+        <div style="background-color:rgb(243, 243, 243);border:1px solid #009688;border-radius:25px;">
           <!-- 发表评论 -->
-          <div style="font-size:25px;color:#67C23A;font-family:'微软雅黑'">说点什么吧_____</div>
+          <div style="padding:20px;font-size:25px;color:#67C23A;font-family:'微软雅黑'">说点什么吧_____</div>
           <div style="margin:10px;padding:10px;">
              <el-input v-model="comment.replayContent" type="textarea" :rows="5" placeholder="请输入内容"  @focus="onFocus"> </el-input>
           </div>

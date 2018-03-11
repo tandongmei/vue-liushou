@@ -1,7 +1,7 @@
 <template>
 <div >
   <!-- 首页轮播 -->
-  <el-carousel  height="550px" interval="2000" arrow="always">
+  <el-carousel  height="500px" interval="2000" arrow="always">
     <el-carousel-item v-for="item in eventList" :key="item.eventId">
        <img :src="item.eventImg" class="image" @click="showDetail(item.eventId)">
     </el-carousel-item>
