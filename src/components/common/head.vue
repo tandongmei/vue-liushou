@@ -3,6 +3,7 @@
     <el-row >
       <el-col :span="24">
       <div class="grid-content bg-purple-dark">
+        
         <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
             <el-row>
               <el-col :span="4">
