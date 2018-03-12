@@ -8,26 +8,22 @@
         </el-breadcrumb>
       </el-header>
       <!-- 新闻列表 -->
-      <el-tabs type="border-card">
+      <el-tabs type="border-card"  @tab-click="changeTab">
         <!-- 板块循环 -->
-        <div v-for="(item, index) in hostList" :key="item.hostId">
-          <el-tab-pane :label="item.title">
+          <el-tab-pane v-for="(item, index) in hostList" :key="item.hostId" :label="item.title" >
             <!-- 板块新闻列表循环 -->
-            <div v-for="(item, index) in eventList" :key="item.eventId"> 
-              <el-card :body-style="{ padding: '25px'  }" style="margin-top: 20px;margin_bottom:40px"> 
+              <el-card v-for="(item, index) in newsList" :key="item.newsId" :body-style="{ padding: '25px'  }" style="margin-top: 20px;margin_bottom:40px"> 
                 <div>
                   <div style="float:left;">
-                    <div style="height:30px;font-weight:500;font-family:'微软雅黑';font-size:25px;width:500px;color:#323232" class="titleDiv" @click="showDetail(item.eventId)"><a href="#" >{{item.title}}</a></div>
+                     <div style="height:30px;font-weight:500;font-family:'微软雅黑';font-size:25px;width:500px;color:#323232" class="titleDiv" @click="showDetail(item.newsId)"><a href="#" >{{item.title}}</a></div> 
                     <div style="width:500px;margin-top: 15px;color:#606266;font-size:13px;line-height:26px"><span>{{item.content}}</span></div>
                   </div>
                   <div style="float:right;">
-                    <div style="" @click="showDetail(item.eventId)"><a href="#" ><img :src="item.eventImg" style="width:150px;height:100px"></a></div>
+                     <div style="" @click="showDetail(item.newsId)"><a href="#" ><img :src="item.newsImg" style="width:150px;height:100px"></a></div> 
                   </div>
                 </div>
               </el-card> 
-            </div> 
           </el-tab-pane>
-        </div>  
       </el-tabs>
   </div>
 </template>
@@ -35,61 +31,47 @@
 export default {
   data() {
     return {
-      hostList: [
-        {
-          hostId: 1,
-          title: '板块1'
-        },
-        {
-          hostId: 2,
-          title: '板块2'
-        },
-        {
-          hostId: 3,
-          title: '板块3'
-        },
-        {
-          hostId: 4,
-          title: '板块4'
-        }
-      ],
-      eventList: [{
-          id: 1,
-          title: '爸爸妈妈，你们在哪',
-          eventImg: 'static/images/child/lunbo/1.jpg',
-          content: '10月5日，也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节'
-        }, {
-          id: 21,
-          title: '爸爸妈妈，你们在哪',
-          eventImg: 'static/images/child/lunbo/1.jpg',
-          content: '10月5日，也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节'
-        },{
-          id: 13,
-          title: '爸爸妈妈，你们在哪',
-          eventImg: 'static/images/child/lunbo/1.jpg',
-          content: '10月5日，也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节'
-        },{
-          id: 1,
-          title: '爸爸妈妈，你们在哪',
-          eventImg: 'static/images/child/lunbo/1.jpg',
-          content: '10月5日，也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节'
-        },{
-          id: 1,
-          title: '爸爸妈妈，你们在哪',
-          eventImg: 'static/images/child/lunbo/1.jpg',
-          content: '10月5日，也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节'
-        },{
-          id: 1,
-          title: '爸爸妈妈，你们在哪',
-          eventImg: 'static/images/child/lunbo/1.jpg',
-          content: '10月5日，也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节'
-        },{
-          id: 1,
-          title: '爸爸妈妈，你们在哪',
-          eventImg: 'static/images/child/lunbo/1.jpg',
-          content: '10月5日，也就是重阳节当天，广东电白县观珠镇河垌村委会发生一起惨学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节学的三名小学生名也就是重阳节'
-        }]
+      hostList: [],
+      newsList: [],
+      pageNo: 1,
+      pageSize: 6,
+      hostId: 1,
+      sort: 'createdTime',
+      dir: 'desc',
+      total: 0,
     }
+  },
+  methods: {
+    getHost: function(){
+      this.$Axios.get(this.$API.apiUri.host.base).then((res) => {
+          let { code, msg, data } = res.data;
+          if(code === 0){
+              this.hostList = data;
+          }
+      })
+    },
+    changeTab:  function (tab, event) {
+        if(event != null){
+          this.hostId = parseInt(event.target.getAttribute('id').substring(4))+1;
+        }
+        let para = {
+          pageNo: this.pageNo,
+          pageSize: this.pageSize,
+          sort: this.sort,
+          dir: this.dir,
+          hostId: this.hostId
+        }
+        this.$Axios.get(this.$API.apiUri.news.base,{params: para}).then((res) => {
+              let { code, msg, data } = res.data;
+              if(code === 0){
+                  this.newsList = data;
+              }
+          })
+      }
+  },
+  mounted: function(){
+    this.changeTab();
+    this.getHost();
   }
   
 }

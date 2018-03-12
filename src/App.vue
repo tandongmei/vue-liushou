@@ -5,7 +5,7 @@
       <head-vue ></head-vue>
     </el-header>
 
-    <el-main >
+    <el-main style="padding:0px">
       <router-view @userSignIn="userLogin"></router-view>
     </el-main>
    
