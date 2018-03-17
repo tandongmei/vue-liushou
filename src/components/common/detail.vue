@@ -7,7 +7,7 @@
           <el-breadcrumb-item>详情页</el-breadcrumb-item>
         </el-breadcrumb>
       </el-header>
-      <el-main style="background:#FFF;padding: 20px 20px;">
+      <el-main style="background:#FFF;padding: 20px 30px;">
         <!-- 详情区 -->
         <div style="height:60px;font-size:20px;line-height:60px;text-align: center;border-bottom:1px solid rgb(254,63,0)">
           {{ this.event.title }}
@@ -22,7 +22,7 @@
           <i class="el-icon-date"></i>{{ this.event.returnTime }}
         </div>
         <!-- 评论区 -->
-        <div style="background-color:rgb(243, 243, 243);border:1px solid #009688;border-radius:25px;">
+        <div style="margin:20px;background-color:rgb(243, 243, 243);border:1px solid #009688;border-radius:25px;">
           <!-- 发表评论 -->
           <div style="padding:20px;font-size:25px;color:#67C23A;font-family:'微软雅黑'">说点什么吧_____</div>
           <div style="margin:10px;padding:10px;">
@@ -33,12 +33,12 @@
             <div class="lineRight" @click="beforeSubmit">发表评论</div>
           </div>
           <!-- 所有评论 -->
-          <div style="margin:100px 10px;background-color:#fff;border-radius:25px;">
+          <div style="margin:100px 20px;background-color:#fff;border-radius:25px;">
             <div style="height:40px;background-color:rgb(250, 250, 250);font-size:14px;color:rgb(119, 119, 119);line-height:40px;padding-left:10px;font-weight:bold">共收到{{this.totalCount}}条评论</div>
               <!-- 评论区 -->
               <div v-for="(item, key, index) in commentList" :key="item.commentId" style="padding: 20px;border-top:1px solid #eee;overflow: hidden;">
                 <div style="float:left;"><img :src="item.replayUser.headImg" style="width:48px;height:48px;border-radius:120px"></div>
-                <div style="float:right;width:580px">
+                <div style="float:right;width:620px">
                   <div>
                     <span style="color:#555;font-weight:bold">{{item.replayUser.nickName}}</span><span style="color:#777;padding:20px;font-size:14px">{{item.returnTime}}</span>
                     <span style="font-size:13px;color:red;padding-left:10px;cursor:pointer"  @click="replayShow(item)">回复</span>

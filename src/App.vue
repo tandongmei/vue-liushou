@@ -1,18 +1,22 @@
 <template>
 <div>
   <el-container>
-    <el-header style="width:100%;height:60px;position:fixed;top:0px;left:0;z-index:50;margin-left:-20px">
+    <!-- <el-header style="width:100%;height:60px;position:fixed;top:0px;left:0;z-index:50;margin-left:-20px"> -->
+    <!-- <el-header style="position:fixed;top:0px;left:0;z-index:50;margin-left:-20px"> -->
+    <el-header height="60px">
       <head-vue ></head-vue>
     </el-header>
 
-    <el-main style="padding:0px">
+    <!-- <el-main style="padding:0px"> -->
+    <el-main>
       <router-view @userSignIn="userLogin"></router-view>
     </el-main>
    
-    <el-footer height="160px">
+    <!-- <el-footer style="left:0;z-index:50;"> -->
+    <el-footer>
       <footVue></footVue>
     </el-footer>
-    </el-container>
+  </el-container>
 </div>
 </template>
 

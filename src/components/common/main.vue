@@ -45,7 +45,7 @@
 </el-container>
 <!-- 首页图文 他们特殊的“故事“-->
 <el-container>
-  <el-main style="background-color:rgb(243,243,243);height:700px">
+  <el-main style="height:700px">
     <el-header height="80px" style="text-align:center;line-height:80px">
       <el-button type="success" plain ><router-link to="/home/child">他们特殊的“故事“>>></router-link></el-button>
     </el-header>
@@ -53,7 +53,7 @@
       <el-row>
         <el-col :span="6" v-for="(item, index) in eventList" :key="item.eventId" :offset="index > 0 ?2 : 0">
           <el-card :body-style="{ padding: '20px' }">
-            <img :src="item.eventImg" class="image" @click="showDetail(item.eventId)">
+            <img :src="item.eventImg" style="width:100%;height:130px" @click="showDetail(item.eventId)">
             <div style="padding: 14px;">
               <span @click="showDetail(item.eventId)" class="toHand">{{item.title}}</span>
               <div class="bottom clearfix">
@@ -99,8 +99,8 @@
 <el-container >
   <el-main style="height:1200px;background-color:red">
     <div>
-      <span><img src="static/images/child/big/big1.png" class="image"></span>
-      <span><img src="static/images/child/big/big1.png" class="image"></span>
+      <span><img src="static/images/child/big/big1.png" ></span>
+      <span><img src="static/images/child/big/big1.png" ></span>
     </div>
     
   </el-main>

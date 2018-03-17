@@ -1,7 +1,7 @@
 <template>
   <div>
-      <el-container style="background-color:rgb(243,243,243);">
-        <el-main style="margin: 10px 10px 10px 70px;">
+      <el-container style="padding:0px">
+        <el-main style="margin: 10px 30px 10px -19px;">
           <!-- 子路由 -->
           <router-view></router-view>
         </el-main>
@@ -9,7 +9,7 @@
         <el-aside style="margin-top: 30px;margin-right: 70px;">
           <el-card class="box-cards" >
               <div class="title">
-                <span>排行榜</span>
+                <span>爱心榜</span>
               </div>
               <div v-for="o in 4" :key="o" class="text item">
                 {{'列表内容 ' + o }}
