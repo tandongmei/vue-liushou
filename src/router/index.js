@@ -5,6 +5,8 @@ import Router from 'vue-router'
 */
 import Main from '../components/common/main.vue'
 import Home from '../components/common/home.vue'
+import Detail from '../components/common/detail'
+import Baike from '../components/common/baike'
 /**
  * /components/register
 */
@@ -24,10 +26,7 @@ import Help from '../components/child/help'
 import LoveUser from '../components/loveUser/loveUser'
 import Assist from '../components/loveUser/assist'
 
-/**
- *  /components/common
-*/
-import Detail from '../components/common/detail'
+
 
 // 安装插件
 Vue.use(Router)
@@ -84,7 +83,17 @@ let routes = [
         { path: 'assist', component: Assist },
         { path: 'detail', component: Detail }
       ]
-    }
+    },
+    // 问卷调查
+    // {
+    //   path: '/shouye',
+    //   component: Main
+    // },
+    // 留守百科
+    {
+      path: '/baike',
+      component: Baike
+    },
 
 ]
 

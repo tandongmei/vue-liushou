@@ -18,7 +18,7 @@
                   <el-menu-item index="3-2"><router-link to="/home/assist" style="color:#fff">为他助力</router-link></el-menu-item>
               </el-submenu>
               <el-menu-item index="4">问卷调查</el-menu-item>
-              <el-menu-item index="5">亲子互动</el-menu-item>
+              <el-menu-item index="5"><router-link to="/baike" style="color:#fff">留守百科</router-link></el-menu-item>
           </el-menu>
         </el-col>
         <el-col :span="4"> 

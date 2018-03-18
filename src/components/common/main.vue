@@ -14,29 +14,29 @@
         <el-col :span="6" >
           <el-header height="10px"></el-header>
           <el-main>
-            <el-header>GUAN AI LIU SHOU</el-header>
-            <el-main>关爱留守</el-main>
+            <el-header><router-link to="/home/child" class="change">GUAN AI LIU SHOU</router-link></el-header>
+            <el-main><router-link to="/home/child" class="change">关爱留守</router-link></el-main>
           </el-main>
         </el-col>
         <el-col :span="6" >
           <el-header height="10px"></el-header>
           <el-main>
-            <el-header>XUN QIU AI XIN</el-header>
-            <el-main>寻求爱心</el-main>
+            <el-header><router-link to="/home/help" class="change">XUN QIU AI XIN</router-link></el-header>
+            <el-main><router-link to="/home/help" class="change">寻求爱心</router-link></el-main>
           </el-main>
         </el-col>
         <el-col :span="6" >
           <el-header height="10px"></el-header>
           <el-main>
-            <el-header>GONG YI XIN WEN</el-header>
-            <el-main>公益新闻</el-main>
+            <el-header><router-link to="/home/loveUser" class="change">GONG YI XIN WEN</router-link></el-header>
+            <el-main><router-link to="/home/loveUser" class="change">公益新闻</router-link></el-main>
           </el-main>
         </el-col>
         <el-col :span="6" >
           <el-header height="10px"></el-header>
           <el-main>
-            <el-header>WEI TA ZHU LI</el-header>
-            <el-main>为他助力</el-main>
+            <el-header><router-link to="/home/assist" class="change">WEI TA ZHU LI</router-link></el-header>
+            <el-main><router-link to="/home/assist" class="change">为他助力</router-link></el-main>
           </el-main>
         </el-col>
       </el-row>
@@ -96,13 +96,70 @@
   </el-main>
 </el-container>
 <!-- 首页>> 大图区 -->
-<el-container >
-  <el-main style="height:1200px;background-color:red">
-    <div>
-      <span><img src="static/images/child/big/big1.png" ></span>
-      <span><img src="static/images/child/big/big1.png" ></span>
-    </div>
-    
+<el-container style="background-color:#fff;padding:0px">
+  <el-main >
+    <el-header style="width:100%;font-size:25px">公益访谈</el-header>
+    <el-main>
+      <el-row>
+        <el-col :span="7">
+          <div class="left" style="background-color: #004986;">
+
+          </div>
+        </el-col>
+        <el-col :span="10.5">
+          <div class="center"><img src="static/images/news/1.jpg"></div>
+        </el-col>
+        <el-col :span="6">
+          <div class="right">
+            <span class="title_main">绿色碳汇先行者</span>
+            <div class="content">森林是陆地生态系统的主体,具有巨大的吸碳、储碳与维护生物多样性等多种功能，成为国际社会公认的降低温室气体浓度，减缓气候变暖的有效途径。植物通过光合作用吸收二氧化碳，放出氧气</div>
+          </div>
+        </el-col>
+        <el-col :span="0.5">
+          <div class="aside" style="background-color: #004986;">-</div>
+        </el-col>
+      </el-row>
+    </el-main>
+
+    <el-main>
+      <el-row>
+        <el-col :span="7">
+          <div class="left" style="background-color: rgb(235,97,0);"></div>
+        </el-col>
+        <el-col :span="10.5">
+          <div class="center"><img src="static/images/news/2.jpg"></div>
+        </el-col>
+        <el-col :span="6">
+          <div class="right">
+            <span class="title_main">绿色碳汇先行者</span>
+            <div class="content">森林是陆地生态系统的主体,具有巨大的吸碳、储碳与维护生物多样性等多种功能，成为国际社会公认的降低温室气体浓度，减缓气候变暖的有效途径。植物通过光合作用吸收二氧化碳，放出氧气</div>
+          </div>
+        </el-col>
+        <el-col :span="0.5">
+          <div class="aside" style="background-color: rgb(235,97,0);">-</div>
+        </el-col>
+      </el-row>
+    </el-main>
+
+    <el-main>
+      <el-row>
+        <el-col :span="7">
+          <div class="left" style="background-color: rgb(0,94,21)"></div>
+        </el-col>
+        <el-col :span="10.5">
+          <div class="center"><img src="static/images/news/3.jpg"></div>
+        </el-col>
+        <el-col :span="6">
+          <div class="right">
+            <span class="title_main">绿色碳汇先行者</span>
+            <div class="content">森林是陆地生态系统的主体,具有巨大的吸碳、储碳与维护生物多样性等多种功能，成为国际社会公认的降低温室气体浓度，减缓气候变暖的有效途径。植物通过光合作用吸收二氧化碳，放出氧气</div>
+          </div>
+        </el-col>
+        <el-col :span="0.5">
+          <div class="aside" style="background-color: rgb(0,94,21)">-</div>
+        </el-col>
+      </el-row>
+    </el-main>
   </el-main>
 </el-container>
 </div>
@@ -179,16 +236,22 @@ export default {
   }
 
 </script>
-<style >
+<style>
+.change {
+  color:#fff
+}
+.change:hover {
+  color: #000;
+
+}
+
 .el-carousel__arrow--left {
   background-color: #303133;
 }
 .el-carousel__arrow--right {
   background-color: #303133;
 }
-/* .el-carousel__button {
-  background-color: red;
-} */
+
 .el-carousel__indicator.is-active button {
   background-color: red;
   height: 5px;
@@ -231,5 +294,48 @@ export default {
     width: 100%;
     height:150px;
     display: block;
+  }
+
+  .left {
+    width: 100%;
+    height: 220px;
+    
+  }
+
+  .center {
+    height: 220px;
+    margin-top: 20px;
+  }
+
+  .right {
+    height: 190px;
+    margin-top: 20px;
+    padding: 5px 10px;
+    color:#707070;
+  }
+
+  .right:hover {
+    background-color: #E6A23C;
+    color:#FFF;
+  }
+
+  .right .title_main {
+    font-size: 18px;
+    /* color: #474747; */
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  .right .content {
+    font-size: 14px;
+    /* color: #707070; */
+    margin-top: 12px;
+    line-height: 1.5;
+    margin-right: 10px;
+  }
+
+  .aside {
+    height: 200px;
+    margin-top: 20px;
   }
 </style>

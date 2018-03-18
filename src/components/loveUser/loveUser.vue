@@ -22,7 +22,15 @@
                      <div style="" @click="showDetail(item.newsId)"><a href="#" ><img :src="item.newsImg" style="width:150px;height:100px"></a></div> 
                   </div>
                 </div>
-              </el-card> 
+              </el-card>
+              <!-- 分页  -->
+              <el-pagination style="height:30px;background-color:#E4E7ED;padding:15px"
+                background
+                layout="prev, pager, next"
+                :pageSize="pageSize" 
+                @current-change="currentChange"
+                :total='total'>
+              </el-pagination>
           </el-tab-pane>
       </el-tabs>
   </div>
@@ -42,11 +50,17 @@ export default {
     }
   },
   methods: {
+     // 处理分页
+    currentChange: function(val){
+      this.pageNo = val;
+      this.changeTab();
+    },
     getHost: function(){
       this.$Axios.get(this.$API.apiUri.host.base).then((res) => {
           let { code, msg, data } = res.data;
           if(code === 0){
               this.hostList = data;
+              
           }
       })
     },
@@ -62,9 +76,10 @@ export default {
           hostId: this.hostId
         }
         this.$Axios.get(this.$API.apiUri.news.base,{params: para}).then((res) => {
-              let { code, msg, data } = res.data;
+              let { code, msg, data, totalRecords } = res.data;
               if(code === 0){
                   this.newsList = data;
+                  this.total = totalRecords;
               }
           })
       }
