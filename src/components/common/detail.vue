@@ -160,10 +160,6 @@ export default {
         replayContent: this.comment.replayContent,
         parentId: this.comment.parentId
       }
-      console.log("eventId:"+para.eventId);
-      console.log("replayUserNickName:"+para.replayUserNickName);
-      console.log("replayContent:"+para.replayContent);
-      console.log("parentId:"+para.parentId);
       // 请求后台添加评论
       this.$Axios.put(this.$API.apiUri.comment.base,para).then((res) => {
         let {code, msg, data } = res.data;
@@ -174,7 +170,7 @@ export default {
           this.comment.replayContent = '';
         }
         if(code === -1 || code===1003){
-          this.$message.success(msg);
+          this.$message.error(msg);
           this.dialogVisible = true;
         }
       })

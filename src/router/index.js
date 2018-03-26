@@ -25,7 +25,8 @@ import Help from '../components/child/help'
 */
 import LoveUser from '../components/loveUser/loveUser'
 import Assist from '../components/loveUser/assist'
-
+import NewsDetail from '../components/loveUser/newsDetail'
+import NewsRedirect from '../components/loveUser/redirect'
 
 
 // 安装插件
@@ -81,7 +82,9 @@ let routes = [
         { path: 'help', component: Help },
         { path: 'loveUser', component: LoveUser },
         { path: 'assist', component: Assist },
-        { path: 'detail', component: Detail }
+        { path: 'detail', component: Detail },
+        { path: 'newsDetail', component: NewsDetail },
+        { path: 'newsRedirect',component: NewsRedirect},
       ]
     },
     // 问卷调查
@@ -94,6 +97,8 @@ let routes = [
       path: '/baike',
       component: Baike
     },
+
+    
 
 ]
 

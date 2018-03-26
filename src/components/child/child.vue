@@ -12,7 +12,7 @@
         <el-card :body-style="{ padding: '25px' }" style="margin-bottom: 20px;height:400px">
           <div style="height:50px;font-size:20px;color:#000;width:576px;" class="titleDiv" @click="showDetail(item.eventId)"><a href="#" >{{item.title}}</a></div>
           <div style="width:576px;height:206px" @click="showDetail(item.eventId)"><a href="#" ><img :src="item.eventImg" style="width:576px;height:206px"></a></div>
-          <div style="width:576px;margin-top: 15px;color:rgb(176,176,176);font-size:13px;line-height:20px"><span>{{item.content}}</span></div>
+          <div style="width:576px;margin-top: 15px;color:rgb(176,176,176);font-size:13px;line-height:20px;">{{item.content}}</div>
         </el-card>
       </div>
       <!-- 分页 -->

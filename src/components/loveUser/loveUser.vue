@@ -16,7 +16,7 @@
                 <div>
                   <div style="float:left;">
                      <div style="height:30px;font-weight:500;font-family:'微软雅黑';font-size:25px;width:500px;color:#323232" class="titleDiv" @click="showDetail(item.newsId)"><a href="#" >{{item.title}}</a></div> 
-                    <div style="width:500px;margin-top: 15px;color:#606266;font-size:13px;line-height:26px"><span>{{item.content}}</span></div>
+                    <div style="width:500px;height:50px;margin-top: 15px;color:#606266;font-size:13px;line-height:26px"><span>{{item.content}}</span></div>
                   </div>
                   <div style="float:right;">
                      <div style="" @click="showDetail(item.newsId)"><a href="#" ><img :src="item.newsImg" style="width:150px;height:100px"></a></div> 
@@ -47,6 +47,16 @@ export default {
       sort: 'createdTime',
       dir: 'desc',
       total: 0,
+      news: {
+        newsId: '',
+        userId: '',
+        hostId: '',
+        title: '',
+        content: '',
+        newsImg: '',
+        headImg: '',
+        createdTime: ''
+      }
     }
   },
   methods: {
@@ -82,7 +92,20 @@ export default {
                   this.total = totalRecords;
               }
           })
-      }
+      },
+      showDetail: function(newsId){
+      // console.log(eventId);
+      // 根据id查看详情
+      this.$Axios.get(this.$API.apiUri.news.base+"/"+newsId).then((res) => {
+        let { code, msg, data } = res.data;
+        if( code === 0){
+          this.news = data;
+          console.log("eventId:"+this.news.newsId);
+          // 路由跳转
+          this.$router.push({path:'/home/newsDetail', query:{news: this.news}});
+        }
+      })
+    }
   },
   mounted: function(){
     this.changeTab();
