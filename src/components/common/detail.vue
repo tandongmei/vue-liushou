@@ -141,9 +141,7 @@ export default {
           this.dialogVisible = true;
       }else{
         // 已经登陆，打开评论框
-        console.log("item.isShow:"+item.isShow);
         item.isShow = 1;
-        console.log("item.isShow2:"+item.isShow);
         this.comment.parentId = item.commentId;
       }
     },
@@ -180,8 +178,6 @@ export default {
       this.dialogVisible = false;
       this.$router.push({path:'/login'});
     },
-
-    
 
     // 去后台查询事件下的所以评论
     queryAllComments(eventId){

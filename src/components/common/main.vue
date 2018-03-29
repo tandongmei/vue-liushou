@@ -77,14 +77,14 @@
     </el-header>
     <el-main>
       <el-row>
-        <el-col :span="5" v-for="(item, index) in newsList" :key="item.eventId" :offset="index > 0 ?1 : 0">
+        <el-col :span="5" v-for="(item, index) in newsList" :key="item.newsId" :offset="index > 0 ?1 : 0">
           <el-card :body-style="{ padding: '0px' }">
-            <img :src="item.eventImg" class="image" @click="showDetail(item.eventId)">
+            <img :src="item.newsImg" class="image" @click="showNewsDetail(item.newsId)">
             <div style="padding: 14px;">
-              <div @click="showDetail(item.eventId)" class="toHand"><el-tag type="warning" >{{ item.title }}</el-tag></div>
-              <span class="toHand" style="font-size:12px;display:block;margin-top:10px" @click="showDetail(item.eventId)">{{item.content}}</span>
+              <div @click="showNewsDetail(item.newsId)" class="toHand"><el-tag type="warning" >{{ item.title }}</el-tag></div>
+              <span class="toHand" style="font-size:12px;display:block;margin-top:10px" @click="showNewsDetail(item.newsId)">{{item.content}}</span>
               <div class="bottom clearfix">
-                <el-button type="text" class="button" @click="showDetail(item.eventId)">查看详情</el-button>
+                <el-button type="text" class="button" @click="showNewsDetail(item.newsId)">查看详情</el-button>
               </div>
             </div>
           </el-card>
@@ -174,30 +174,31 @@ export default {
       return {
         eventList: [],
         newsList: [],
-        event: {
-          eventId: '',
-          userId: '',
-          title: '',
-          content: '',
-          eventImg: '',
-          flag: '',
-          hostId: '',
-          createdTime: ''
-        } 
+        event: {},
+        news: {} 
       }
     },
     methods: {
       formatTime: function(time){
         return formatCreatedTime(time);
       },
+      // 根据id查看事件详情
       showDetail: function(eventId){
-        console.log(eventId);
-          // 根据id查看详情
         this.$Axios.get(this.$API.apiUri.event.base+"/"+eventId).then((res) => {
         let { code, msg, data } = res.data;
         if( code === 0){
           this.event = data;
           this.$router.push({path:'/home/detail', query:{event: this.event}, meta:{ scrollToTop: true }});
+        }
+      })
+      },
+      // 查看新闻详情
+      showNewsDetail: function(newsId){
+         this.$Axios.get(this.$API.apiUri.news.base+"/"+newsId).then((res) => {
+        let { code, msg, data } = res.data;
+        if( code === 0){
+          this.news = data;
+          this.$router.push({path:'/home/newsDetail', query:{news: this.news}, meta:{ scrollToTop: true }});
         }
       })
       },
@@ -213,8 +214,7 @@ export default {
           pageNo: 1,
           pageSize: 4,
           sort: 'createdTime',
-          dir: 'desc',
-          filters: {isLeftChild: 0}
+          dir: 'desc'
         }
         this.$Axios.get(this.$API.apiUri.event.base,{params: para}).then((res) => {
             let { code, msg, data } = res.data;
@@ -222,7 +222,7 @@ export default {
               this.eventList = data;
             }
         })
-        this.$Axios.get(this.$API.apiUri.event.base,{params: para2}).then((res) => {
+        this.$Axios.get(this.$API.apiUri.news.base,{params: para2}).then((res) => {
             let { code, msg, data } = res.data;
             if( code === 0){
               this.newsList = data;

@@ -19,6 +19,7 @@ import Update from '../components/register/update'
 */
 import Child from '../components/child/child'
 import Help from '../components/child/help'
+import EventRedirect from '../components/child/redirect'
 
 /**
  * /components/loveUser
@@ -85,6 +86,7 @@ let routes = [
         { path: 'detail', component: Detail },
         { path: 'newsDetail', component: NewsDetail },
         { path: 'newsRedirect',component: NewsRedirect},
+        { path: 'eventRedirect',component: EventRedirect},
       ]
     },
     // 问卷调查

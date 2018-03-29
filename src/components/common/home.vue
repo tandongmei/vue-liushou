@@ -17,24 +17,26 @@
                   <img :src="item.newsImg" class="toHand" style="width:300px;height:200px;"  @click="showDetail(item.newsId)">
                 </el-carousel-item>
               </el-carousel>
-              <div @click="showDetail(item.newsId)" v-for="item in newsList" :key="item.newsId" class="text item toHand"  style="margin-top:20px">
+              <!-- <div @click="showDetail(item.newsId)" v-for="item in newsList" :key="item.newsId" class="text item toHand"  style="margin-top:20px">
                 <span >{{item.title }}</span>
-              </div>
+              </div> -->
           </el-card>
           <el-card class="box-cards">
             <div class="title">
-              <span>热门推荐</span>
+              <span>热评榜</span>
             </div>
-            <div v-for="o in 4" :key="o" class="text item toHand">
-              {{'列表内容 ' + o }}
+            <div @click="showHostDetail(item.eventId)" v-for="item in hostEventList" :key="item.eventId" class="text  toHand">
+              <span>{{item.title }}</span>
+              <el-badge :value="item.num" :max="99" class="item"><el-tag type="warning"  size="mini">评论数</el-tag></el-badge>
             </div>
           </el-card>
           <el-card class="box-cards">
             <div class="title">
-              <span>最新文章</span>
+              <span>最新动态</span>
             </div>
-            <div v-for="o in 4" :key="o" class="text item toHand">
-              {{'列表内容 ' + o }}
+            <div @click="showHostDetail(item.eventId)" v-for="item in newEventList" :key="item.eventId" class="text item toHand">
+              <el-tag style="margin-right:5px" type="success"  size="mini">{{item.createdTime | formatDate }}</el-tag>
+              {{item.title }}
             </div>
           </el-card>
           <el-card class="box-cards">
@@ -50,20 +52,13 @@
   </div>
 </template>
 <script>
+import { formatReturnTime } from './../../utils/converterUtil';
 export default {
   data() {
     return {
       newsList: {},
-      news: {
-        newsId: '',
-        userId: '',
-        hostId: '',
-        title: '',
-        content: '',
-        newsImg: '',
-        headImg: '',
-        createdTime: ''
-      }
+      hostEventList: {},
+      newEventList: {}
     }
   },
   methods: {
@@ -83,24 +78,64 @@ export default {
             }
         })
     },
+    // 查询热评榜
+    queryHostEvents: function(){
+        this.$Axios.get(this.$API.apiUri.event.host).then((res) => {
+            let { code, msg, data } = res.data;
+            if( code === 0){
+              this.hostEventList = data;
+            }
+        })
+    },
+    // 查询最新动态
+    queryNewEvents: function(){
+      let para = {
+          pageNo: 1,
+          pageSize: 4,
+          sort: 'createdTime',
+          dir: 'desc',
+        }
+        this.$Axios.get(this.$API.apiUri.event.base,{params: para}).then((res) => {
+            let { code, msg, data } = res.data;
+            if( code === 0){
+              this.newEventList = data;
+            }
+        })
+    },
     // 爱心榜详情
     showDetail: function(newsId){
-      console.log(newsId);
       // 根据id查看详情
       this.$Axios.get(this.$API.apiUri.news.base+"/"+newsId).then((res) => {
         let { code, msg, data } = res.data;
         if( code === 0){
-          this.news = data;
-          console.log("before: news.title:"+this.news.title);
+          var news = data;
           // 路由跳转
-          this.$router.push({path:'/home/newsRedirect', query:{news: this.news}});
+          this.$router.push({path:'/home/newsRedirect', query:{news: news}});
         }
       })
     },
+    // 热评详情
+    showHostDetail: function(eventId){
+      this.$Axios.get(this.$API.apiUri.event.base+"/"+eventId).then((res) => {
+        let { code, msg, data } = res.data;
+        if( code === 0){
+          var event = data;
+          // 路由跳转
+          this.$router.push({path:'/home/eventRedirect', query:{event: event}});
+        }
+      })
+    }
   },
 
   mounted: function() {
     this.queryLoveNews();
+    this.queryHostEvents();
+    this.queryNewEvents();
+  },
+  filters: {
+      formatDate(time) {
+          return formatReturnTime(time);
+      }
   }
   
 }

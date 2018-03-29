@@ -13,7 +13,8 @@ export default {
             'login': HOST[ENV] + '/api/user/login'
         },
         'event': {
-            'base': HOST[ENV] + '/api/event'           
+            'base': HOST[ENV] + '/api/event',
+            'host': HOST[ENV] + '/api/event/host'         
         },
         'comment': {
             'base': HOST[ENV] + '/api/comment'
