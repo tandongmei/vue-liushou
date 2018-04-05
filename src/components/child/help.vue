@@ -12,8 +12,19 @@
           最新发表
       </el-header>  
       <el-table :data="eventList" stripe style="width: 100%;cursor:pointer;" @row-click="showDetail">
-        <el-table-column prop="createdTime" label="发表日期" :formatter="formatTime"  width="180"></el-table-column>
-        <el-table-column prop="nickName" label="发表人"  width="180"></el-table-column>
+        <el-table-column  label="发表日期" :formatter="formatTime"  width="180">
+          <template slot-scope="scope">
+            <i class="el-icon-time"></i>
+            <span style="margin-left: 10px">{{ formatTime(row,column,scope.row.createdTime) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column  label="发表人"  width="180">
+          <template slot-scope="scope">
+              <div slot="reference" class="name-wrapper">
+                <el-tag size="medium">{{ scope.row.nickName }}</el-tag>
+              </div>
+          </template>
+        </el-table-column>
         <el-table-column prop="title" label="标题"></el-table-column>
       </el-table>
       <el-pagination style="height:30px;background-color:#E4E7ED;padding:15px"
