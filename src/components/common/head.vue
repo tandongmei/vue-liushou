@@ -1,5 +1,4 @@
 <template>
-  <!-- <div style="position:fixed; width:100%;height:60px"> -->
   <div>
     <el-row>
        <el-col :span="20">

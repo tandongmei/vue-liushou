@@ -70,7 +70,6 @@ export default {
         })
     },
   showDetail: function(eventId){
-      // console.log(eventId);
       // 根据id查看详情
       this.$Axios.get(this.$API.apiUri.event.base+"/"+eventId).then((res) => {
         let { code, msg, data } = res.data;
