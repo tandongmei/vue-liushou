@@ -37,13 +37,19 @@
                 <el-form-item label="邮箱" prop="email">
                     <el-input v-model.trim="user.email" suffix-icon="el-icon-message"></el-input>
                 </el-form-item>
-                <el-form-item label="是否是留守儿童" prop="isLeftChild">
-                    <el-radio-group v-model="user.isLeftChild">
-                            <el-radio :label="1">是</el-radio>
-                            <el-radio :label="0">否</el-radio>
-                    </el-radio-group>
+                <el-form-item label="支付宝二维码" prop="headImg" v-if="user.isLeftChild == 1">
+                  <el-upload
+                      class="avatar-uploader"
+                      action="https://up.qiniup.com"
+                      :data="postData"
+                      :show-file-list="false"
+                      :on-success="handlePayUrlSuccess"
+                      :before-upload="beforeAvatarUpload">
+                      <img v-if="user.payUrl" :src="user.headImg" class="avatar">
+                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  </el-upload>
                 </el-form-item>
-                <el-form-item label="支付宝账号" prop="payNo">
+                <el-form-item label="支付宝账号" prop="payNo" v-if="user.isLeftChild == 1">
                     <el-input v-model.trim="user.payNo" suffix-icon="el-icon-tickets" placeholder="请输入一个可收款的支付宝账号"></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -129,7 +135,8 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
           email: '',
           isLeftChild: 1,
           headImg: '',
-          payNo: ''
+          payNo: '',
+          payUrl: ''
         },
         rules: {
           nickName: [
@@ -178,7 +185,8 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
                     email: this.user.email,
                     isLeftChild: this.user.isLeftChild,
                     headImg: this.user.headImg,
-                    payNo: this.user.payNo
+                    payNo: this.user.payNo,
+                    payUrl: this.user.payUrl
                 }).then((res) => {
                 let {code,msg,data} = res.data;
                 if(code === 0){
@@ -204,15 +212,20 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
             this.$refs[formName].resetFields();
         },
         handleAvatarSuccess(res, file) {
-            console.log("file:"+file.name);
-            // this.user.headImg = URL.createObjectURL(file.raw);
+            console.log("file-head:"+file.name);
             this.user.headImg = "http://p3ga0tg9o.bkt.clouddn.com/"+file.name;
             console.log("this.user.headImg:"+this.user.headImg);
+        },
+        handlePayUrlSuccess(res, file) {
+        console.log("file-pay:"+file.name);
+        this.user.payUrl = "http://p3ga0tg9o.bkt.clouddn.com/"+file.name;
+        console.log("this.user.payUrl:"+this.user.payUrl);
         },
         beforeAvatarUpload(file) {
             let suffix = file.name;
             let key = encodeURI(`${suffix}`);
             this.postData.key = key;
+            console.log("this.postData.key:"+this.postData.key);
             return this.postData;
         },
         // 获取上传token
@@ -223,6 +236,7 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
                 if(code === 0){
                     this.postData.token = data;
                 }
+                console.log("token:"+this.postData.token); 
             })
         }
     },

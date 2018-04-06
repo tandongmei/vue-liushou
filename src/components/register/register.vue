@@ -1,6 +1,6 @@
 <template>
 <div>
-   <el-container style="background-image:url('static/images/common/back7.jpg');height:850px;">
+   <el-container style="background-image:url('static/images/common/back7.jpg');height:950px;">
        <el-main style="background-color:#FFFFFF;width:400px;margin:50px 350px 450px 350px;border-radius:25px;">
            <div style="text-align:center;font-family:blod;font-size:35px;"><span style="font-color:red">注册</span></div>
            <el-form :model="user" :rules="rules" ref="userForm" label-width="110px" class="demo-ruleForm">
@@ -12,6 +12,13 @@
                 </el-form-item>
                 <el-form-item label="确认密码" prop="rePassword">
                     <el-input  v-model.trim="user.rePassword" suffix-icon="el-icon-edit"></el-input>
+                </el-form-item>
+                <el-form-item  prop="isLeftChild">
+                    <el-radio-group v-model="user.isLeftChild">
+                            <el-radio :label="1" >留守儿童</el-radio>
+                            <el-radio :label="0" >爱心人士</el-radio>
+                    </el-radio-group>
+                    <span style="color:red">(谨慎选择，不可修改)</span>
                 </el-form-item>
                 <!-- <el-form-item label="真实姓名" prop="name">
                     <el-input v-model.trim="user.name" suffix-icon="el-icon-edit"></el-input>
@@ -129,13 +136,14 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
         user: {
           nickName: '',
           password: '',
-          rePassword: ''
+          rePassword: '',
+          isLeftChild: 1
           // name: '',
           // gender: 1,
           // age: '',
           // tel: '',
           // email: '',
-          // isLeftChild: 1,
+          
           // headImg: '',
           // payNo: ''
         },
