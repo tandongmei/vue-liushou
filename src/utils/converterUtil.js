@@ -29,13 +29,13 @@ export function formatReturnTime(dateTimeStamp) {
 	var month = day * 30;
 	var now = new Date().getTime();
 	var diffValue = now - dateTimeStamp;
-	if(diffValue < 0){return;}
+	if(diffValue < 0){return ;}
 	var monthC =diffValue/month;
 	var weekC =diffValue/(7*day);
 	var dayC =diffValue/day;
 	var hourC =diffValue/hour;
     var minC =diffValue/minute;
-    var result = "";
+	var result = "";
 	if(monthC>=1){
 		result="" + parseInt(monthC) + "月前";
 	}
@@ -50,8 +50,9 @@ export function formatReturnTime(dateTimeStamp) {
 	}
 	else if(minC>=1){
 		result=""+ parseInt(minC) +"分钟前";
-	}else{
-result="刚刚";
+	}
+	else{
+        result="刚刚";
     }
 	
 	return result;

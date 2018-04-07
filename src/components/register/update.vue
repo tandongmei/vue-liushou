@@ -24,7 +24,7 @@
                       :show-file-list="false"
                       :on-success="handleAvatarSuccess"
                       :before-upload="beforeAvatarUpload">
-                      <img v-if="user.headImg" :src="user.headImg" class="avatar">
+                      <img v-if="this.user.headImg" :src="this.user.headImg" class="avatarHead">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                 </el-form-item>
@@ -45,7 +45,7 @@
                       :show-file-list="false"
                       :on-success="handlePayUrlSuccess"
                       :before-upload="beforeAvatarUpload">
-                      <img v-if="user.payUrl" :src="user.headImg" class="avatar">
+                      <img v-if="user.payUrl" :src="user.payUrl" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                 </el-form-item>
@@ -268,6 +268,11 @@ import {valiTel,valiEmail,valiPayNo} from './../../utils/validateUtil';
   .avatar {
     width: 178px;
     height: 178px;
+    display: block;
+  }
+  .avatarHead {
+    width: 80px;
+    height: 80px;
     display: block;
   }
 </style>

@@ -15,7 +15,7 @@
         <el-table-column  label="发表日期" :formatter="formatTime"  width="180">
           <template slot-scope="scope">
             <i class="el-icon-time"></i>
-            <span style="margin-left: 10px">{{ formatTime(row,column,scope.row.createdTime) }}</span>
+            <span style="margin-left: 10px">{{ formatTime(null,null,scope.row.createdTime) }}</span>
           </template>
         </el-table-column>
         <el-table-column  label="发表人"  width="180">
@@ -36,12 +36,12 @@
       </el-pagination>
       <!-- 发表文章 -->
       <div style="text-align:center;font-size:25px;background-color:#E4E7ED;margin-top:40px;padding-top:20px;color:#E6A23C">说出你的故事</div>
-      <el-form :rules="rules"  ref="eventForm" :model="event" label-width="80px" style="padding:20px 20px;background-color:#E4E7ED">
+      <el-form :disabled="isDisabled" :rules="rules"  ref="eventForm" :model="event" label-width="80px" style="padding:20px 20px;background-color:#E4E7ED">
         <el-form-item label="标题" prop="title">
           <el-input v-model="event.title" @focus="beforeInput" ></el-input>
         </el-form-item>
         <el-form-item label="详细描述" prop="content">
-          <el-input type="textarea" @focus="beforeInput" v-model="event.content" :rows="15" placeholder="请输入内容"></el-input>
+          <el-input  type="textarea" @focus="beforeInput" v-model="event.content" :rows="15" placeholder="请输入内容"></el-input>
         </el-form-item>
         <el-form-item label="上传图片" prop="eventImg">
           <el-upload
@@ -92,6 +92,8 @@ import { formatCreatedTime } from '../../utils/converterUtil';
   export default {
     data() {
       return {
+        isDisabled: false,
+        filters: { nickName: sessionStorage.getItem('nickName')},
         postData: {
             token: '',
             key: ''
@@ -233,13 +235,30 @@ import { formatCreatedTime } from '../../utils/converterUtil';
             this.$router.push({path:'/home/detail', query:{event: this.event}});
           }
         })
-      }  
+      },
+      // 判断input框是否禁用
+      isShow: function(){
+            let para = {
+                filters: JSON.stringify(this.filters)
+            };
+            this.$Axios.get(this.$API.apiUri.user.base,{params: para}).then((res) => {
+                let { code, msg, data } = res.data;
+                if(code === 0){
+                    var isLeftChild = data[0].isLeftChild;
+                    if(isLeftChild == 0){
+                      this.isDisabled = true;
+                    }
+                    console.log("isLeftChild:"+isLeftChild);
+                }
+            })
+        },  
     },
     
   // 生命周期函数
   mounted: function(){
      this.queryEvents();
      this.getToken();
+     this.isShow();
     }
   }
 </script>

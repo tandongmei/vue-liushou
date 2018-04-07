@@ -15,7 +15,7 @@
       <div style="margin-left:15px">
         <img :src="this.news.headImg" style="width:28px;border-radius:120px;margin-right:5px"></img>
         <span style="margin-top:0">{{this.news.userName}}</span>
-        <span>{{this.news.createdTime}}</span>
+        <span>{{this.news.createdTime | formatTime}}</span>
       </div>
       <el-main>
         <span style="color:#606266;line-height:22px;">{{this.news.content}}</span>
@@ -31,6 +31,8 @@
 
 </template>
 <script>
+import { formatReturnTime, formatCreatedTime } from './../../utils/converterUtil';
+
 export default {
   data() {
       return {
@@ -39,6 +41,11 @@ export default {
   },
   mounted: function(){
       this.news = this.$route.query.news;
+  },
+  filters: {
+      formatTime: function(val){
+        return formatCreatedTime(val);
+      },
   }
 }
 </script>

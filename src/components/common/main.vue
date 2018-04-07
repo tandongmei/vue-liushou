@@ -2,7 +2,7 @@
 <div >
   <!-- 首页轮播 -->
   <el-carousel  height="500px" interval="2000" arrow="always">
-    <el-carousel-item v-for="item in eventList" :key="item.eventId">
+    <el-carousel-item v-for="item in adList" :key="item.eventId">
        <img :src="item.eventImg" class="image" @click="showDetail(item.eventId)">
     </el-carousel-item>
   </el-carousel>
@@ -173,6 +173,7 @@ export default {
     data () {
       return {
         eventList: [],
+        adList: [],
         newsList: [],
         event: {},
         news: {} 
@@ -203,26 +204,38 @@ export default {
       })
       },
       queryEvents: function(){
-        let para = {
+        let eventPara = {
           pageNo: 1,
           pageSize: 6,
           sort: 'createdTime',
           dir: 'desc',
-          filters: {isLeftChild: 1}
+          filters: ''
         }
-         let para2 = {
+         let newsPara = {
           pageNo: 1,
           pageSize: 4,
           sort: 'createdTime',
           dir: 'desc'
         }
-        this.$Axios.get(this.$API.apiUri.event.base,{params: para}).then((res) => {
+         let adPara = {
+          pageNo: 1,
+          pageSize: 3,
+          sort: 'createdTime',
+          dir: 'asc'
+        } 
+        this.$Axios.get(this.$API.apiUri.event.base,{params: eventPara}).then((res) => {
             let { code, msg, data } = res.data;
             if( code === 0){
               this.eventList = data;
             }
         })
-        this.$Axios.get(this.$API.apiUri.news.base,{params: para2}).then((res) => {
+         this.$Axios.get(this.$API.apiUri.event.base,{params: adPara}).then((res) => {
+            let { code, msg, data } = res.data;
+            if( code === 0){
+              this.adList = data;
+            }
+        })
+        this.$Axios.get(this.$API.apiUri.news.base,{params: newsPara}).then((res) => {
             let { code, msg, data } = res.data;
             if( code === 0){
               this.newsList = data;

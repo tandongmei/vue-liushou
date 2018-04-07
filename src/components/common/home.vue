@@ -35,24 +35,24 @@
               <span>最新动态</span>
             </div>
             <div @click="showHostDetail(item.eventId)" v-for="item in newEventList" :key="item.eventId" class="text item toHand">
-              <el-tag style="margin-right:5px" type="success"  size="mini">{{item.createdTime | formatDate }}</el-tag>
+              <el-tag style="margin-right:5px" type="success"  size="mini">{{item.createdTime | formatTime }}</el-tag>
               {{item.title }}
             </div>
           </el-card>
-          <el-card class="box-cards">
+          <!-- <el-card class="box-cards">
             <div class="title">
               <span>随便看看</span>
             </div>
             <div v-for="o in 4" :key="o" class="text item toHand">
               {{'列表内容 ' + o }}
             </div>
-          </el-card>
+          </el-card> -->
         </el-aside>
     </el-container>
   </div>
 </template>
 <script>
-import { formatReturnTime } from './../../utils/converterUtil';
+import { formatReturnTime, formatCreatedTime } from './../../utils/converterUtil';
 export default {
   data() {
     return {
@@ -62,6 +62,7 @@ export default {
     }
   },
   methods: {
+    
     // 查询爱心榜
     queryLoveNews: function(){
       let para = {
@@ -135,7 +136,10 @@ export default {
   filters: {
       formatDate(time) {
           return formatReturnTime(time);
-      }
+      },
+      formatTime: function(val){
+        return formatCreatedTime(val);
+      },
   }
   
 }
@@ -169,6 +173,10 @@ export default {
     width: 100%;
     display: block;
     cursor:pointer;
+  }
+
+  .toHand {
+    cursor: pointer;
   }
 </style>
 

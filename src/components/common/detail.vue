@@ -20,6 +20,10 @@
         </div>
         <div style="margin:30px 30px 60px 30px">
           <i class="el-icon-date"></i>{{ this.event.returnTime }}
+          <el-button
+            size="small"
+            type="danger"
+            @click="handleAssist">我要赞助</el-button>
         </div>
         <!-- 评论区 -->
         <div style="margin:20px;background-color:rgb(243, 243, 243);border:1px solid #009688;border-radius:25px;">
@@ -188,6 +192,35 @@ export default {
           this.totalCount = totalRecords;
         }
       })
+    },
+    // 我要赞助
+    handleAssist: function(){
+      let userId = this.event.userId;
+      // alert(userId);
+       this.$Axios.get(this.$API.apiUri.user.base+"/"+userId).then((res) => {
+            let { code, msg, data } = res.data;
+            if(code === 0){
+                var payNo = data.payNo;
+                var payUrl = data.payUrl;
+                if(payNo && payUrl){
+                    this.$alert('<div><strong>支付宝：'+payNo+'</strong></div><div>二维码：<img src='+payUrl+' class=img></div>', '通过以下方式赞助：', {
+                    dangerouslyUseHTMLString: true
+                  });
+                }else if(payNo){
+                    this.$alert('<div><strong>支付宝：'+payNo+'</strong></div>', '通过以下方式赞助：', {
+                    dangerouslyUseHTMLString: true
+                  });
+                }else if(payUrl){
+                    this.$alert('<div>二维码：<img src='+payUrl+' class=img></div>', '通过以下方式赞助：', {
+                    dangerouslyUseHTMLString: true
+                  });
+                }else{
+                  this.$alert('<div><strong>该用户还没添加支付宝账号！</strong></div>', '温馨提示：', {
+                    dangerouslyUseHTMLString: true
+                  });
+                }
+            }
+        })
     }
   },
   mounted: function(){
@@ -229,6 +262,9 @@ export default {
   display: none;
 }
 
-
+.img {
+  width: 300px;
+  height: 300px;
+}
 </style>
 
