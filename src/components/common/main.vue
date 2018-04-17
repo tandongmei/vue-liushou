@@ -78,7 +78,7 @@
     <el-main>
       <el-row>
         <el-col :span="5" v-for="(item, index) in newsList" :key="item.newsId" :offset="index > 0 ?1 : 0">
-          <el-card :body-style="{ padding: '0px' }">
+          <el-card :body-style="{ padding: '0px' }" style="height:376px;">
             <img :src="item.newsImg" class="image" @click="showNewsDetail(item.newsId)">
             <div style="padding: 14px;">
               <div @click="showNewsDetail(item.newsId)" class="toHand"><el-tag type="warning" >{{ item.title }}</el-tag></div>
@@ -205,7 +205,7 @@ export default {
       },
       queryEvents: function(){
         let eventPara = {
-          pageNo: 1,
+          pageNo: 4,
           pageSize: 6,
           sort: 'createdTime',
           dir: 'desc',
