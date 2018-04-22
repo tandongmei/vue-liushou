@@ -42,6 +42,7 @@
           sessionStorage.setItem("headImg", arr[1]);
           sessionStorage.setItem("noReadCommentCount",arr[2]);
           sessionStorage.setItem("noReadReplyCount",arr[3]);
+          console.log("head:"+sessionStorage.setItem("headImg", arr[1]));
       }
     }
   }

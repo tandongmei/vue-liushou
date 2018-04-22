@@ -9,7 +9,7 @@
       </el-header>
       <!-- 内容区 -->
       <el-container>
-        <el-header style="height:100px;background-color:#FFF">
+        <el-header style="height:100px;background-image: url('static/images/common/ad4.jpg') ">
           
         </el-header>
         <el-main style="background-color:#FFF;margin-top:30px">

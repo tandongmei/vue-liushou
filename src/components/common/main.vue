@@ -103,7 +103,14 @@
       <el-row>
         <el-col :span="7">
           <div class="left" style="background-color: #004986;">
-
+            <div class="left-top">
+              <h3>专访中国绿色碳汇基金会</h3>
+              <h5 style="margin-top:10px;margin-left:60px;">———宣传部长何业云</h5>
+            </div>
+            <div class="left-bottom">
+              <p>2016-12-02</p>
+              <p>第三期</p>
+            </div>
           </div>
         </el-col>
         <el-col :span="10.5">
@@ -124,15 +131,24 @@
     <el-main>
       <el-row>
         <el-col :span="7">
-          <div class="left" style="background-color: rgb(235,97,0);"></div>
+          <div class="left" style="background-color: rgb(235,97,0);">
+             <div class="left-top">
+              <h3>中国少年儿童慈善救助基金会</h3>
+              <h5 style="margin-top:10px;margin-left:60px;">———副秘书长姜莹</h5>
+            </div>
+            <div class="left-bottom">
+              <p>2016-11-18</p>
+              <p>第二期</p>
+            </div>
+          </div>
         </el-col>
         <el-col :span="10.5">
           <div class="center"><img src="static/images/news/2.jpg"></div>
         </el-col>
         <el-col :span="6">
           <div class="right">
-            <span class="title_main">绿色碳汇先行者</span>
-            <div class="content">森林是陆地生态系统的主体,具有巨大的吸碳、储碳与维护生物多样性等多种功能，成为国际社会公认的降低温室气体浓度，减缓气候变暖的有效途径。植物通过光合作用吸收二氧化碳，放出氧气</div>
+            <span class="title_main">铜娃娃慈善公益基金</span>
+            <div class="content">在中国，有一群娃娃叫"铜娃娃"！有一个节日叫"国际肝豆关注日"！ 5.23——中国铜娃娃率先在世界上倡导发起设立的"国际肝豆关注日"！谁是铜娃娃？铜娃娃是谁？改变从了解开始，关注就是希望，多一份希望就多一份他们在困境中生存、前行的力量…… </div>
           </div>
         </el-col>
         <el-col :span="0.5">
@@ -144,15 +160,24 @@
     <el-main>
       <el-row>
         <el-col :span="7">
-          <div class="left" style="background-color: rgb(0,94,21)"></div>
+          <div class="left" style="background-color: rgb(0,94,21)">
+             <div class="left-top">
+              <h3>专访中国残疾人福利基金会</h3>
+              <h5 style="margin-top:10px;margin-left:60px;">———宣传部副部长常达</h5>
+            </div>
+            <div class="left-bottom">
+              <p>2016-11-10</p>
+              <p>第一期</p>
+            </div>
+          </div>
         </el-col>
         <el-col :span="10.5">
           <div class="center"><img src="static/images/news/3.jpg"></div>
         </el-col>
         <el-col :span="6">
           <div class="right">
-            <span class="title_main">绿色碳汇先行者</span>
-            <div class="content">森林是陆地生态系统的主体,具有巨大的吸碳、储碳与维护生物多样性等多种功能，成为国际社会公认的降低温室气体浓度，减缓气候变暖的有效途径。植物通过光合作用吸收二氧化碳，放出氧气</div>
+            <span class="title_main">集善残疾人助养</span>
+            <div class="content">中国残疾人福利基金会开展的集善残疾儿童助养项目在湖北荆州、陕西宝鸡和甘肃定西，选择0-14岁的残疾儿童及残疾人家庭子女，由驻点项目团队实施运作项目。从个人、家庭、学校、社会四个方面为残疾儿童和残疾人家庭女子提供全方位的帮助…… </div>
           </div>
         </el-col>
         <el-col :span="0.5">
@@ -250,6 +275,21 @@ export default {
 
 </script>
 <style>
+.left-top {
+    margin: 10px auto;
+    color: #ffffff;
+    width: 90%;
+    height: 46%;
+    padding: 20px 0px 0px 0px;
+    border-bottom: 1px #ffffff solid;
+    text-align: center;
+}
+.left-bottom {
+    margin: 14px auto;
+    color: #ffffff;
+    width: 96%;
+    text-align: center;
+}
 .change {
   color:#fff
 }
